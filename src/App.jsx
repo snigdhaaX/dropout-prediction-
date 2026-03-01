@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
-import { 
-  BarChart, Bar, AreaChart, Area, LineChart, Line, PieChart, Pie, Cell, 
-  XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, ResponsiveContainer, Legend
+import {
+    BarChart, Bar, AreaChart, Area, LineChart, Line, PieChart, Pie, Cell,
+    XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, ResponsiveContainer, Legend
 } from 'recharts';
-import { 
-  ShieldAlert, BookOpen, GraduationCap, Users, LayoutDashboard,
-  AlertTriangle, TrendingUp, TrendingDown, Minus, ChevronRight, 
-  ArrowLeft, Brain, Activity, Clock, LogOut, CheckCircle2, Search,
-  Filter, MoreVertical, ShieldCheck, Zap, Wallet, MapPin, Star, Shield, TrendingDown as TrendingDownIcon, BarChart2, IndianRupee, Bell
+import {
+    ShieldAlert, BookOpen, GraduationCap, Users, LayoutDashboard,
+    AlertTriangle, TrendingUp, TrendingDown, Minus, ChevronRight,
+    ArrowLeft, Brain, Activity, Clock, LogOut, CheckCircle2, Search,
+    Filter, MoreVertical, ShieldCheck, Zap, Wallet, MapPin, Star, Shield, TrendingDown as TrendingDownIcon, BarChart2, IndianRupee, Bell
 } from 'lucide-react';
 
 const TOTAL_STUDENTS = 15;
@@ -221,12 +221,10 @@ const calculateRiskScore = (student) => {
 };
 
 const getLevelColor = (level) => {
-    if (level === "SAFE") return "#00D4FF";
+    if (level === "SAFE") return "#BFA14A";
     if (level === "MODERATE") return "#F59E0B";
     return "#EF4444";
-};
-
-
+}
 const HeaderUnderline = ({ title }) => (
     <div className="mb-6">
         <h2 className="text-2xl font-bold tracking-wide">{title}</h2>
@@ -248,7 +246,7 @@ const Card = ({ children, tier = 1, className = "", delay = 0, onClick, title })
 const CustomTooltip = ({ active, payload, label }) => {
     if (active && payload && payload.length) {
         return (
-            <div className="bg-[#0A0F1E] bg-opacity-90 border border-white/10 backdrop-blur-md rounded-lg p-3 text-white shadow-xl">
+            <div className="bg-[#0B0B0C] bg-opacity-90 border border-white/10 backdrop-blur-md rounded-lg p-3 text-white shadow-xl">
                 <p className="font-semibold mb-1">{label}</p>
                 {payload.map((entry, index) => (
                     <div key={`item-${index}`} className="flex items-center gap-2 text-sm">
@@ -265,7 +263,7 @@ const CustomTooltip = ({ active, payload, label }) => {
 
 const Footer = () => (
     <div style={{
-        borderTop: '1px solid rgba(255,255,255,0.05)',
+        borderTop: '1px solid rgba(191,161,74,0.09)',
         background: 'rgba(255,255,255,0.01)',
         padding: '14px 32px',
         textAlign: 'center',
@@ -294,10 +292,10 @@ const LoginPage = ({ onLogin }) => {
                     <div key={i} className="absolute rounded-full" style={{
                         width: `${Math.random() * 4 + 2}px`,
                         height: `${Math.random() * 4 + 2}px`,
-                        backgroundColor: Math.random() > 0.5 ? '#00D4FF' : '#7B6EF6',
+                        backgroundColor: Math.random() > 0.5 ? '#BFA14A' : '#A88C3D',
                         left: `${Math.random() * 100}%`,
                         top: `${Math.random() * 100}%`,
-                        opacity: 0.3,
+                        opacity: 0.3 * 0.85,
                         animation: `float ${Math.random() * 4 + 4}s ease-in-out infinite`,
                         animationDelay: `${Math.random() * 2}s`
                     }} />
@@ -305,8 +303,8 @@ const LoginPage = ({ onLogin }) => {
             </div>
 
             <div className="card-tier-3 p-10 w-full max-w-md animate-fade-up z-10 flex flex-col items-center shadow-2xl relative">
-                <div className="absolute -top-12 w-24 h-24 bg-[#00D4FF]/20 rounded-full blur-3xl"></div>
-                <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#00D4FF] to-[#7B6EF6] flex items-center justify-center mb-4 relative z-10 block">
+                <div className="absolute -top-12 w-24 h-24 bg-[#BFA14A]/[0.18] rounded-full blur-3xl"></div>
+                <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#BFA14A] to-[#A88C3D] flex items-center justify-center mb-4 relative z-10 block">
                     <Brain className="w-8 h-8 text-white" />
                 </div>
                 <h1 className="text-4xl font-extrabold mb-2 text-gradient tracking-tight relative z-10">Continuum</h1>
@@ -317,7 +315,7 @@ const LoginPage = ({ onLogin }) => {
                         <button
                             key={r}
                             onClick={() => setRole(r)}
-                            className={`flex-1 py-2 text-sm font-semibold rounded-lg transition-all duration-300 ${role === r ? "bg-gradient-to-r from-[#00D4FF] to-[#7B6EF6] text-white shadow-lg" : "text-gray-400 hover:text-white"
+                            className={`flex-1 py-2 text-sm font-semibold rounded-lg transition-all duration-300 ${role === r ? "bg-gradient-to-r from-[#BFA14A] to-[#A88C3D] text-white shadow-lg" : "text-gray-400 hover:text-white"
                                 }`}
                         >
                             {r}
@@ -328,13 +326,13 @@ const LoginPage = ({ onLogin }) => {
                 <div className="w-full space-y-4 mb-8 relative z-10">
                     <div>
                         <input type="text" placeholder="Email Address"
-                            className="w-full bg-[#0A0F1E]/50 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-[#00D4FF]/50 transition-colors"
+                            className="w-full bg-[#0B0B0C]/50 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-[#BFA14A]/30 transition-colors"
                             defaultValue={`demo@academiq.edu`}
                         />
                     </div>
                     <div>
                         <input type="password" placeholder="Password"
-                            className="w-full bg-[#0A0F1E]/50 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-[#00D4FF]/50 transition-colors"
+                            className="w-full bg-[#0B0B0C]/50 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-[#BFA14A]/30 transition-colors"
                             defaultValue="password"
                         />
                     </div>
@@ -342,7 +340,7 @@ const LoginPage = ({ onLogin }) => {
 
                 <button
                     onClick={() => onLogin(role.toLowerCase())}
-                    className="w-full btn-gradient py-3 rounded-xl font-bold text-lg flex items-center justify-center gap-2 relative z-10"
+                    onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.transition = 'all 0.25s ease'; e.currentTarget.style.boxShadow = '0 6px 18px rgba(191,161,74,0.16)'; }} onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0px)'; e.currentTarget.style.boxShadow = 'none'; }} className="w-full btn-gradient py-3 rounded-xl font-bold text-lg flex items-center justify-center gap-2 relative z-10"
                 >
                     Access Platform <ChevronRight className="w-5 h-5" />
                 </button>
@@ -377,7 +375,7 @@ const AdminDashboard = ({ students, onNavigate }) => {
         ];
 
         const pieData = [
-            { name: 'Safe', value: safe, color: '#00D4FF' },
+            { name: 'Safe', value: safe, color: '#BFA14A' },
             { name: 'Moderate', value: moderate, color: '#F59E0B' },
             { name: 'High Risk', value: high, color: '#EF4444' }
         ];
@@ -390,21 +388,33 @@ const AdminDashboard = ({ students, onNavigate }) => {
             <HeaderUnderline title="Institution Overview" />
 
             <div className="flex flex-wrap md:flex-nowrap gap-4 mb-6">
-                <Card delay={0.1} className="w-full md:w-1/3 min-w-[200px]">
+                <Card delay={0.1} className="w-full md:w-1/3 min-w-[200px]" style={{
+                    animationName: 'staggerFadeUp',
+                    animationDuration: '260ms',
+                    animationTimingFunction: 'ease-out',
+                    animationFillMode: 'both',
+                    animationDelay: '0s'
+                }}>
                     <div className="text-gray-400 text-sm font-semibold mb-1 flex items-center gap-2">
-                        <Users className="w-4 h-4 text-[#00D4FF]" /> Total Students
+                        <Users className="w-4 h-4 text-[#BFA14A]" /> Total Students
                     </div>
                     <div className="text-3xl font-bold text-white mb-2">{TOTAL_STUDENTS}</div>
                     <div className="h-10">
                         <ResponsiveContainer width="100%" height="100%">
                             <LineChart data={[{ v: 10 }, { v: 12 }, { v: 11 }, { v: 14 }, { v: 15 }]}>
-                                <Line type="monotone" dataKey="v" stroke="#00D4FF" strokeWidth={2} dot={false} />
+                                <Line type="monotone" dataKey="v" stroke="#BFA14A" strokeWidth={2} dot={false} />
                             </LineChart>
                         </ResponsiveContainer>
                     </div>
                 </Card>
 
-                <Card delay={0.2} className="w-full md:w-1/4 risk-pulse relative overflow-hidden bg-red-500/5 border-red-500/20"
+                <Card delay={0.2} className="w-full md:w-1/4 risk-pulse relative overflow-hidden bg-red-500/5 border-red-500/20" style={{
+                    animationName: 'staggerFadeUp',
+                    animationDuration: '260ms',
+                    animationTimingFunction: 'ease-out',
+                    animationFillMode: 'both',
+                    animationDelay: '0.06s'
+                }}
                     onClick={() => onNavigate('faculty')}>
                     <div className="absolute -right-4 -top-4 w-16 h-16 bg-red-500/20 rounded-full blur-xl"></div>
                     <div className="text-gray-400 text-sm font-semibold mb-1 flex items-center gap-2">
@@ -414,7 +424,13 @@ const AdminDashboard = ({ students, onNavigate }) => {
                     <div className="text-xs text-red-400 mt-2">+2 since last week</div>
                 </Card>
 
-                <Card delay={0.3} className="w-full md:w-1/5 bg-amber-500/5 border-amber-500/20"
+                <Card delay={0.3} className="w-full md:w-1/5 bg-amber-500/5 border-amber-500/20" style={{
+                    animationName: 'staggerFadeUp',
+                    animationDuration: '260ms',
+                    animationTimingFunction: 'ease-out',
+                    animationFillMode: 'both',
+                    animationDelay: '0.12s'
+                }}
                     onClick={() => onNavigate('interventions')}>
                     <div className="text-gray-400 text-sm font-semibold mb-1 flex items-center gap-2">
                         <Activity className="w-4 h-4 text-amber-500" /> Interventions
@@ -423,7 +439,13 @@ const AdminDashboard = ({ students, onNavigate }) => {
                     <div className="text-xs text-amber-400 mt-2">4 pending review</div>
                 </Card>
 
-                <Card delay={0.4} className="w-full md:w-1/4">
+                <Card delay={0.4} className="w-full md:w-1/4" style={{
+                    animationName: 'staggerFadeUp',
+                    animationDuration: '260ms',
+                    animationTimingFunction: 'ease-out',
+                    animationFillMode: 'both',
+                    animationDelay: '0.18s'
+                }}>
                     <div className="text-gray-400 text-sm font-semibold mb-1 flex items-center gap-2">
                         <Brain className="w-4 h-4 text-purple-400" /> Avg Risk Score
                     </div>
@@ -445,7 +467,7 @@ const AdminDashboard = ({ students, onNavigate }) => {
                                     <RechartsTooltip content={<CustomTooltip />} cursor={{ fill: 'rgba(255,255,255,0.05)' }} />
                                     <Bar dataKey="limit" radius={[4, 4, 0, 0]}>
                                         {data.deptChart.map((entry, index) => (
-                                            <Cell key={`cell-${index}`} fill={entry.limit > 60 ? '#EF4444' : entry.limit > 40 ? '#F59E0B' : '#00D4FF'} />
+                                            <Cell key={`cell-${index}`} fill={entry.limit > 60 ? '#EF4444' : entry.limit > 40 ? '#F59E0B' : '#BFA14A'} />
                                         ))}
                                     </Bar>
                                 </BarChart>
@@ -524,8 +546,8 @@ const AdminDashboard = ({ students, onNavigate }) => {
                                 <p className="text-sm font-medium">Rehan Shaikh marked 3rd behavioral incident</p>
                                 <p className="text-xs text-gray-500">1 hour ago</p>
                             </div>
-                            <div className="animate-fade-up relative pl-4 border-l-2 border-[#00D4FF]" style={{ animationDelay: '1.1s' }}>
-                                <div className="absolute -left-[5px] top-1 w-2 h-2 rounded-full bg-[#00D4FF] shadow-[0_0_8px_rgba(0,212,255,1)]"></div>
+                            <div className="animate-fade-up relative pl-4 border-l-2 border-[#BFA14A]" style={{ animationDelay: '1.1s' }}>
+                                <div className="absolute -left-[5px] top-1 w-2 h-2 rounded-full bg-[#BFA14A] shadow-[0_0_8px_rgba(191,161,74,1)]"></div>
                                 <p className="text-sm font-medium">Kavya Nair shows strong recovery trend</p>
                                 <p className="text-xs text-gray-500">3 hours ago</p>
                             </div>
@@ -549,27 +571,27 @@ const AdminDashboard = ({ students, onNavigate }) => {
                         <div style={{ fontSize: 10, color: 'rgba(255,255,255,0.25)' }}>vs. pre-intervention baseline</div>
                     </Card>
 
-                    <Card tier={1} className="flex-1 min-w-[200px]" style={{ borderLeft: '3px solid #00D4FF' }}>
+                    <Card tier={1} className="flex-1 min-w-[200px]" style={{ borderLeft: '3px solid #BFA14A' }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 11, color: 'rgba(255,255,255,0.4)', marginBottom: 8 }}>
-                            <Users size={20} color="#00D4FF" /> Stabilized This Quarter
+                            <Users size={20} color="#BFA14A" /> Stabilized This Quarter
                         </div>
-                        <div style={{ fontFamily: 'Syne', fontSize: 28, color: '#00D4FF', marginBottom: 4 }}>8 Students</div>
+                        <div style={{ fontFamily: 'Syne', fontSize: 28, color: '#BFA14A', marginBottom: 4 }}>8 Students</div>
                         <div style={{ fontSize: 10, color: 'rgba(255,255,255,0.25)', marginBottom: 12 }}>Moved from HIGH/MODERATE → SAFE</div>
 
                         <div style={{ display: 'flex' }}>
                             {students.slice(0, 8).map((s, i) => (
-                                <div key={i} style={{ width: 18, height: 18, borderRadius: '50%', background: 'rgba(0,212,255,0.2)', border: '1px solid rgba(0,212,255,0.3)', fontSize: 8, color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', marginLeft: i === 0 ? 0 : -6 }}>
+                                <div key={i} style={{ width: 18, height: 18, borderRadius: '50%', background: 'rgba(191,161,74,0.18)', border: '1px solid rgba(191,161,74,0.3)', fontSize: 8, color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', marginLeft: i === 0 ? 0 : -6 }}>
                                     {s.name[0]}
                                 </div>
                             ))}
                         </div>
                     </Card>
 
-                    <Card tier={1} className="flex-1 min-w-[200px]" style={{ borderLeft: '3px solid #7B6EF6' }}>
+                    <Card tier={1} className="flex-1 min-w-[200px]" style={{ borderLeft: '3px solid #A88C3D' }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 11, color: 'rgba(255,255,255,0.4)', marginBottom: 8 }}>
-                            <BarChart2 size={20} color="#7B6EF6" /> Retention Improvement
+                            <BarChart2 size={20} color="#A88C3D" /> Retention Improvement
                         </div>
-                        <div style={{ fontFamily: 'Syne', fontSize: 28, color: '#7B6EF6', marginBottom: 4 }}>+18.6%</div>
+                        <div style={{ fontFamily: 'Syne', fontSize: 28, color: '#A88C3D', marginBottom: 4 }}>+18.6%</div>
                         <div style={{ fontSize: 10, color: 'rgba(255,255,255,0.25)' }}>Semester-over-semester growth</div>
                     </Card>
 
@@ -641,7 +663,7 @@ const FacultyDashboard = ({ students, onSelectStudent }) => {
                     <input
                         type="text" placeholder="Search by name or ID..."
                         value={search} onChange={e => setSearch(e.target.value)}
-                        className="w-full bg-[#0A0F1E]/60 border border-white/10 rounded-xl pl-10 pr-4 py-2.5 text-white placeholder-gray-500 focus:outline-none focus:border-[#00D4FF]/50 transition-colors backdrop-blur-md"
+                        className="w-full bg-[#0B0B0C]/60 border border-white/10 rounded-xl pl-10 pr-4 py-2.5 text-white placeholder-gray-500 focus:outline-none focus:border-[#BFA14A]/50 transition-colors backdrop-blur-md"
                     />
                 </div>
 
@@ -678,13 +700,24 @@ const FacultyDashboard = ({ students, onSelectStudent }) => {
                         <tbody>
                             {processed.map((s, idx) => {
                                 const isHigh = s.risk.level === "HIGH";
+                                const isSafe = s.risk.level === "SAFE";
                                 return (
-                                    <tr key={s.id} className={`border-b border-white/5 smart-table-row risk-${s.risk.level.toLowerCase()}`}>
+                                    <tr key={s.id} className={`border-b border-white/5 smart-table-row risk-${s.risk.level.toLowerCase()}`}
+                                        onMouseEnter={e => {
+                                            e.currentTarget.style.transform = 'translateX(3px)';
+                                            e.currentTarget.style.transition = 'all 0.2s ease';
+                                            e.currentTarget.style.background = 'rgba(191,161,74,0.04)';
+                                        }}
+                                        onMouseLeave={e => {
+                                            e.currentTarget.style.transform = 'translateX(0px)';
+                                            e.currentTarget.style.background = 'transparent';
+                                        }}
+                                    >
                                         <td className="p-4 text-center text-gray-500">{idx + 1}</td>
                                         <td className="p-4">
                                             <div className="flex items-center gap-3">
-                                                <div className="w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm bg-[#0A0F1E]"
-                                                    style={{ border: `2px solid ${getLevelColor(s.risk.level)}`, color: getLevelColor(s.risk.level) }}>
+                                                <div className="w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm bg-[#0B0B0C]"
+                                                    style={{ border: `2px solid ${isSafe ? 'rgba(191,161,74,0.26)' : getLevelColor(s.risk.level)}`, color: getLevelColor(s.risk.level) }}>
                                                     {s.name.split(' ').map(n => n[0]).join('')}
                                                 </div>
                                                 <div>
@@ -697,26 +730,26 @@ const FacultyDashboard = ({ students, onSelectStudent }) => {
                                         <td className="p-4 text-center text-gray-300">{s.sem}</td>
                                         <td className="p-4 text-center">
                                             <div className="inline-block px-3 py-1 rounded-full risk-cell font-bold"
-                                                style={{ backgroundColor: `${getLevelColor(s.risk.level)}20`, color: getLevelColor(s.risk.level) }}>
+                                                style={{ backgroundColor: isSafe ? 'rgba(191,161,74,0.18)' : `${getLevelColor(s.risk.level)}20`, color: getLevelColor(s.risk.level) }}>
                                                 {s.risk.score}
                                             </div>
                                         </td>
                                         <td className="p-4">
                                             <div className={`inline-block px-3 py-1 rounded-full text-xs font-bold border ${isHigh ? 'risk-pulse' : ''}`}
-                                                style={{ borderColor: getLevelColor(s.risk.level), color: getLevelColor(s.risk.level), backgroundColor: `${getLevelColor(s.risk.level)}10` }}>
+                                                style={{ borderColor: isSafe ? 'rgba(191,161,74,0.24)' : getLevelColor(s.risk.level), color: getLevelColor(s.risk.level), backgroundColor: isSafe ? 'rgba(191,161,74,0.08)' : `${getLevelColor(s.risk.level)}10` }}>
                                                 {s.risk.level}
                                             </div>
                                         </td>
                                         <td className="p-4 text-center">
                                             {s.risk.trend === 'declining' && <TrendingDown className="w-5 h-5 mx-auto text-red-500" />}
-                                            {s.risk.trend === 'improving' && <TrendingUp className="w-5 h-5 mx-auto text-[#00D4FF]" />}
+                                            {s.risk.trend === 'improving' && <TrendingUp className="w-5 h-5 mx-auto text-[#BFA14A]" />}
                                             {s.risk.trend === 'stable' && <Minus className="w-5 h-5 mx-auto text-gray-400" />}
                                             {s.risk.trend === 'mixed' && <Activity className="w-5 h-5 mx-auto text-amber-500" />}
                                         </td>
                                         <td className="p-4 text-center align-middle">
                                             <button
                                                 onClick={() => onSelectStudent(s)}
-                                                className="action-btn px-4 py-1.5 btn-gradient rounded-lg text-sm font-bold text-white shadow-md mx-auto inline-block opacity-0 transition-opacity"
+                                                onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.transition = 'all 0.25s ease'; e.currentTarget.style.boxShadow = '0 6px 18px rgba(191,161,74,0.16)'; }} onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0px)'; e.currentTarget.style.boxShadow = 'none'; }} className="action-btn px-4 py-1.5 btn-gradient rounded-lg text-sm font-bold text-white shadow-md mx-auto inline-block opacity-0 transition-opacity"
                                             >
                                                 View Profile
                                             </button>
@@ -733,42 +766,16 @@ const FacultyDashboard = ({ students, onSelectStudent }) => {
     );
 };
 
-const StudentDetail = ({ student, onBack, onInterventionReq, setCounselingToast }) => {
-    const [loading, setLoading] = useState(true);
+const StudentDetail = ({ student, onBack, onInterventionReq, skeletonLoading, displayScore, showToast }) => {
+
     const risk = useMemo(() => calculateRiskScore(student), [student]);
     const color = getLevelColor(risk.level);
     const isHigh = risk.level === "HIGH";
-
-    const [scoreDisplay, setScoreDisplay] = useState(0);
-
-    useEffect(() => {
-        let timer1 = setTimeout(() => setLoading(false), 1000);
-
-        let start = 0;
-        const end = risk.score;
-        const duration = 1500;
-        const incrementTime = Math.max(10, Math.floor(duration / end));
-
-        let counter = setInterval(() => {
-            start += 1;
-            setScoreDisplay(current => {
-                if (current >= end) {
-                    clearInterval(counter);
-                    return end;
-                }
-                return current + 1;
-            });
-        }, incrementTime);
-
-        return () => {
-            clearTimeout(timer1);
-            clearInterval(counter);
-        };
-    }, [risk.score]);
+    const isSafe = risk.level === "SAFE";
 
     const radius = 80;
     const circumference = 2 * Math.PI * radius;
-    const strokeDashoffset = loading ? circumference : circumference - (risk.score / 100) * circumference;
+    const strokeDashoffset = skeletonLoading ? circumference : circumference - (displayScore / 100) * circumference;
 
     const shapData = [
         { factor: 'Attendance', value: risk.breakdown.attendance, type: 'risk' },
@@ -788,46 +795,58 @@ const StudentDetail = ({ student, onBack, onInterventionReq, setCounselingToast 
                 <ArrowLeft className="w-5 h-5" /> Back to Students
             </button>
 
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-8 relative">
-                <div className="flex items-center gap-6">
-                    <div className="w-24 h-24 rounded-full flex items-center justify-center font-bold text-3xl bg-[#0A0F1E] shadow-2xl relative"
-                        style={{ border: `3px solid ${color}`, color: color }}>
-                        {student.name.split(' ').map(n => n[0]).join('')}
-                        {isHigh && <div className="absolute inset-0 rounded-full blur-md opacity-50" style={{ backgroundColor: color }}></div>}
-                    </div>
-                    <div>
-                        <h1 className="text-4xl font-bold mb-2 tracking-tight flex items-center">{student.name}</h1>
-                        <div className="flex gap-3 text-sm">
-                            <span className="text-gray-400">ID: <span className="text-white font-medium">{student.id}</span></span>
-                            <span className="px-2 py-0.5 rounded bg-white/10 text-gray-300 font-medium">{student.dept}</span>
-                            <span className="px-2 py-0.5 rounded bg-white/10 text-gray-300 font-medium">Sem {student.sem}</span>
+            {skeletonLoading ? (
+                <div style={{ opacity: 1, transition: 'opacity 200ms ease' }}>
+                    <div style={{ display: 'flex', gap: 20, marginBottom: 32 }}>
+                        <div className="skeleton-block" style={{ width: 72, height: 72, borderRadius: 36 }} />
+                        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 10 }}>
+                            <div className="skeleton-block" style={{ width: '40%', height: 18, borderRadius: 6 }} />
+                            <div className="skeleton-block" style={{ width: '25%', height: 13, borderRadius: 6 }} />
                         </div>
                     </div>
+                    <div className="skeleton-block" style={{ width: 180, height: 180, borderRadius: 90, margin: '0 auto 32px' }} />
+                    {[1, 2, 3].map(i => (
+                        <div key={i} className="skeleton-block" style={{ width: '100%', height: 96, borderRadius: 16, marginBottom: 16 }} />
+                    ))}
                 </div>
-
-                <div className="flex flex-col md:flex-row items-end gap-6 ml-auto">
-                    <div className="text-right">
-                        <div className="text-sm text-gray-400 mb-1">Faculty Advisor</div>
-                        <div className="font-semibold">{student.facultyAdvisor}</div>
-                        <div className="text-xs text-gray-500 mt-1">Prev GPA: {student.prevGPA}</div>
-                    </div>
-
-                    <div className={`px-6 py-3 rounded-2xl border-2 shadow-lg flex items-center justify-center font-extrabold text-xl tracking-wider ${isHigh ? 'risk-pulse' : ''}`}
-                        style={{ borderColor: color, color: color, backgroundColor: `${color}15`, textShadow: `0 0 10px ${color}` }}>
-                        {risk.level} RISK
-                    </div>
-                </div>
-            </div>
-
-            <HeaderUnderline title="Risk Intelligence" />
-
-            {loading ? (
-                <div className="h-[400px] rounded-2xl w-full shimmer-loading mb-8 border border-white/5"></div>
             ) : (
-                <>
+                <div style={{ opacity: skeletonLoading ? 0 : 1, transition: 'opacity 250ms ease' }}>
+                    <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-8 relative">
+                        <div className="flex items-center gap-6">
+                            <div className="w-24 h-24 rounded-full flex items-center justify-center font-bold text-3xl bg-[#0B0B0C] shadow-2xl relative"
+                                style={{ border: `3px solid ${isSafe ? 'rgba(191,161,74,0.26)' : color}`, color: color }}>
+                                {student.name.split(' ').map(n => n[0]).join('')}
+                                {isHigh && <div className="absolute inset-0 rounded-full blur-md opacity-50" style={{ backgroundColor: color }}></div>}
+                            </div>
+                            <div>
+                                <h1 className="text-4xl font-bold mb-2 tracking-tight flex items-center">{student.name}</h1>
+                                <div className="flex gap-3 text-sm">
+                                    <span className="text-gray-400">ID: <span className="text-white font-medium">{student.id}</span></span>
+                                    <span className="px-2 py-0.5 rounded bg-white/10 text-gray-300 font-medium">{student.dept}</span>
+                                    <span className="px-2 py-0.5 rounded bg-white/10 text-gray-300 font-medium">Sem {student.sem}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="flex flex-col md:flex-row items-end gap-6 ml-auto">
+                            <div className="text-right">
+                                <div className="text-sm text-gray-400 mb-1">Faculty Advisor</div>
+                                <div className="font-semibold">{student.facultyAdvisor}</div>
+                                <div className="text-xs text-gray-500 mt-1">Prev GPA: {student.prevGPA}</div>
+                            </div>
+
+                            <div className={`px-6 py-3 rounded-2xl border-2 shadow-lg flex items-center justify-center font-extrabold text-xl tracking-wider ${isHigh ? 'risk-pulse' : ''}`}
+                                style={{ borderColor: isSafe ? 'rgba(191,161,74,0.24)' : color, color: color, backgroundColor: isSafe ? 'rgba(191,161,74,0.10)' : `${color}15`, textShadow: isSafe ? 'none' : `0 0 10px ${color}` }}>
+                                {risk.level} RISK
+                            </div>
+                        </div>
+                    </div>
+
+                    <HeaderUnderline title="Risk Intelligence" />
                     <div className="flex flex-col lg:flex-row gap-6 mb-8">
                         <Card tier={3} delay={0.1} className="w-full lg:w-1/3 flex flex-col items-center justify-center py-8 relative overflow-hidden">
                             {isHigh && <div className="risk-meter-glow-high"></div>}
+                            {isSafe && <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(191,161,74,0.13)_0%,transparent_70%)] pointer-events-none"></div>}
 
                             <div className={`relative w-48 h-48 flex items-center justify-center ${isHigh ? 'risk-vibrate' : ''}`}>
                                 <svg width="200" height="200" className="absolute -rotate-90 transform">
@@ -841,7 +860,7 @@ const StudentDetail = ({ student, onBack, onInterventionReq, setCounselingToast 
                                 </svg>
                                 <div className="text-center">
                                     <div className="text-5xl font-black" style={{ color: color, textShadow: isHigh ? `0 0 15px ${color}` : 'none' }}>
-                                        {scoreDisplay}
+                                        {displayScore}
                                     </div>
                                     <div className="text-sm text-gray-400 font-bold tracking-widest uppercase mt-1">Score</div>
                                 </div>
@@ -864,7 +883,7 @@ const StudentDetail = ({ student, onBack, onInterventionReq, setCounselingToast 
                                             <CartesianGrid stroke="#1E2A3A" strokeDasharray="3 3" vertical={false} />
                                             <XAxis dataKey="week" stroke="#4A5568" tick={{ fill: '#6B7280', fontSize: 10 }} axisLine={false} tickLine={false} />
                                             <RechartsTooltip content={<CustomTooltip />} />
-                                            <Line type="monotone" dataKey="val" stroke="#00D4FF" strokeWidth={3} dot={{ r: 4, fill: '#00D4FF', strokeWidth: 0 }} activeDot={{ r: 6 }} />
+                                            <Line type="monotone" dataKey="val" stroke="#BFA14A" strokeWidth={3} dot={{ r: 4, fill: '#BFA14A', strokeWidth: 0 }} activeDot={{ r: 6 }} />
                                         </LineChart>
                                     </ResponsiveContainer>
                                 </div>
@@ -878,7 +897,7 @@ const StudentDetail = ({ student, onBack, onInterventionReq, setCounselingToast 
                                             <CartesianGrid stroke="#1E2A3A" strokeDasharray="3 3" vertical={false} />
                                             <XAxis dataKey="test" stroke="#4A5568" tick={{ fill: '#6B7280', fontSize: 10 }} axisLine={false} tickLine={false} />
                                             <RechartsTooltip content={<CustomTooltip />} />
-                                            <Line type="monotone" dataKey="val" stroke={risk.breakdown.marks > 10 ? '#EF4444' : '#00D4FF'} strokeWidth={3} dot={{ r: 4 }} />
+                                            <Line type="monotone" dataKey="val" stroke={risk.breakdown.marks > 10 ? '#EF4444' : '#BFA14A'} strokeWidth={3} dot={{ r: 4 }} />
                                         </LineChart>
                                     </ResponsiveContainer>
                                 </div>
@@ -921,7 +940,7 @@ const StudentDetail = ({ student, onBack, onInterventionReq, setCounselingToast 
                                         <RechartsTooltip content={<CustomTooltip />} cursor={{ fill: 'rgba(255,255,255,0.05)' }} />
                                         <Bar dataKey="value" radius={[0, 4, 4, 0]} barSize={20}>
                                             {shapData.map((entry, index) => (
-                                                <Cell key={`cell-${index}`} fill={entry.type === 'risk' ? '#EF4444' : '#00D4FF'} />
+                                                <Cell key={`cell-${index}`} fill={entry.type === 'risk' ? '#EF4444' : '#BFA14A'} />
                                             ))}
                                         </Bar>
                                     </BarChart>
@@ -931,7 +950,7 @@ const StudentDetail = ({ student, onBack, onInterventionReq, setCounselingToast 
                                 {shapData.map((d, i) => (
                                     <div key={i} className="flex items-start gap-3 animate-fade-up" style={{ animationDelay: `${0.7 + i * 0.1}s` }}>
                                         <div className="mt-0.5">
-                                            {d.type === 'risk' ? <TrendingDown className="w-5 h-5 text-red-500" /> : <TrendingUp className="w-5 h-5 text-[#00D4FF]" />}
+                                            {d.type === 'risk' ? <TrendingDown className="w-5 h-5 text-red-500" /> : <TrendingUp className="w-5 h-5 text-[#BFA14A]" />}
                                         </div>
                                         <div>
                                             <div className="text-sm font-medium text-white">{d.factor}</div>
@@ -950,14 +969,14 @@ const StudentDetail = ({ student, onBack, onInterventionReq, setCounselingToast 
                     {/* Panel A: Financial Risk Index */}
                     <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)', backdropFilter: 'blur(20px)', borderRadius: 20, padding: 24, marginBottom: 24 }}>
                         <div style={{ fontFamily: 'Syne', fontSize: '1.5rem', fontWeight: 700, marginBottom: 8 }}>💰 Financial Risk Index</div>
-                        <div style={{ height: 2, borderRadius: 1, background: 'linear-gradient(90deg, #00D4FF, transparent)', width: 0, animation: 'expandLine 1s 0.2s ease forwards', marginBottom: 24 }}></div>
+                        <div style={{ height: 2, borderRadius: 1, background: 'linear-gradient(90deg, #BFA14A, transparent)', width: 0, animation: 'expandLine 1s 0.2s ease forwards', marginBottom: 24 }}></div>
                         <div style={{ display: 'flex', flexDirection: 'row', gap: 16 }}>
                             <div style={{ flex: 1, borderRight: '1px solid rgba(255,255,255,0.05)', paddingRight: 16 }}>
                                 <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.4)', marginBottom: 8 }}>Fee Status</div>
                                 <span style={{
-                                    background: student.financial.feeStatus === "Paid" ? 'rgba(16,185,129,0.12)' : student.financial.feeStatus === "Pending" ? 'rgba(239,68,68,0.12)' : 'rgba(0,212,255,0.12)',
-                                    border: `1px solid ${student.financial.feeStatus === "Paid" ? 'rgba(16,185,129,0.3)' : student.financial.feeStatus === "Pending" ? 'rgba(239,68,68,0.3)' : 'rgba(0,212,255,0.3)'}`,
-                                    color: student.financial.feeStatus === "Paid" ? '#10B981' : student.financial.feeStatus === "Pending" ? '#EF4444' : '#00D4FF',
+                                    background: student.financial.feeStatus === "Paid" ? 'rgba(16,185,129,0.12)' : student.financial.feeStatus === "Pending" ? 'rgba(239,68,68,0.12)' : 'rgba(191,161,74,0.12)',
+                                    border: `1px solid ${student.financial.feeStatus === "Paid" ? 'rgba(16,185,129,0.3)' : student.financial.feeStatus === "Pending" ? 'rgba(239,68,68,0.3)' : 'rgba(191,161,74,0.3)'}`,
+                                    color: student.financial.feeStatus === "Paid" ? '#10B981' : student.financial.feeStatus === "Pending" ? '#EF4444' : '#BFA14A',
                                     borderRadius: 20, padding: '4px 12px', fontSize: 13, fontWeight: 500, display: 'inline-block'
                                 }}>
                                     {student.financial.feeStatus}
@@ -993,7 +1012,7 @@ const StudentDetail = ({ student, onBack, onInterventionReq, setCounselingToast 
                     {/* Panel B: Socio-Economic Profile */}
                     <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)', backdropFilter: 'blur(20px)', borderRadius: 20, padding: 24, marginBottom: 24 }}>
                         <div style={{ fontFamily: 'Syne', fontSize: '1.5rem', fontWeight: 700, marginBottom: 8 }}>🏘️ Socio-Economic Profile</div>
-                        <div style={{ height: 2, borderRadius: 1, background: 'linear-gradient(90deg, #00D4FF, transparent)', width: 0, animation: 'expandLine 1s 0.2s ease forwards', marginBottom: 24 }}></div>
+                        <div style={{ height: 2, borderRadius: 1, background: 'linear-gradient(90deg, #BFA14A, transparent)', width: 0, animation: 'expandLine 1s 0.2s ease forwards', marginBottom: 24 }}></div>
                         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
                             <div style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 12, padding: '12px 16px', display: 'flex', alignItems: 'center', gap: 10 }}>
                                 <Wallet size={16} />
@@ -1016,11 +1035,11 @@ const StudentDetail = ({ student, onBack, onInterventionReq, setCounselingToast 
                                 </div>
                             </div>
                             {student.socioEconomic.firstGenerationLearner ? (
-                                <div style={{ gridColumn: 'span 2', background: 'rgba(139,92,246,0.08)', border: '1px solid rgba(139,92,246,0.2)', borderRadius: 12, padding: '12px 16px', display: 'flex', alignItems: 'center', gap: 10 }}>
-                                    <Star size={16} color="#A78BFA" />
+                                <div style={{ gridColumn: 'span 2', background: 'rgba(191,161,74,0.07)', border: '1px solid rgba(191,161,74,0.20)', borderRadius: 12, padding: '12px 16px', display: 'flex', alignItems: 'center', gap: 10 }}>
+                                    <Star size={16} color="#BFA14A" />
                                     <div>
-                                        <div style={{ color: '#A78BFA', fontWeight: 600, fontSize: 13 }}>First-Generation Learner</div>
-                                        <div style={{ fontSize: 11, color: 'rgba(167,139,250,0.6)' }}>Eligible for additional institutional support</div>
+                                        <div style={{ color: '#BFA14A', fontWeight: 600, fontSize: 13 }}>First-Generation Learner</div>
+                                        <div style={{ fontSize: 11, color: 'rgba(191,161,74,0.45)' }}>Eligible for additional institutional support</div>
                                     </div>
                                 </div>
                             ) : (
@@ -1044,11 +1063,11 @@ const StudentDetail = ({ student, onBack, onInterventionReq, setCounselingToast 
                     {/* Panel C: Dropout Risk Prediction */}
                     <div style={{
                         background: 'rgba(255,255,255,0.02)',
-                        border: `1px solid ${isHigh ? 'rgba(239,68,68,0.25)' : risk.level === "MODERATE" ? 'rgba(245,158,11,0.2)' : 'rgba(0,212,255,0.15)'}`,
+                        border: `1px solid ${isHigh ? 'rgba(239,68,68,0.25)' : risk.level === "MODERATE" ? 'rgba(245,158,11,0.2)' : 'rgba(191,161,74,0.15)'}`,
                         backdropFilter: 'blur(20px)', borderRadius: 20, padding: 24, marginBottom: 24
                     }}>
                         <div style={{ fontFamily: 'Syne', fontSize: '1.5rem', fontWeight: 700, marginBottom: 8 }}>⏱️ Dropout Risk Prediction</div>
-                        <div style={{ height: 2, borderRadius: 1, background: 'linear-gradient(90deg, #00D4FF, transparent)', width: 0, animation: 'expandLine 1s 0.2s ease forwards', marginBottom: 24 }}></div>
+                        <div style={{ height: 2, borderRadius: 1, background: 'linear-gradient(90deg, #BFA14A, transparent)', width: 0, animation: 'expandLine 1s 0.2s ease forwards', marginBottom: 24 }}></div>
                         <div style={{ display: 'flex', flexDirection: 'row', gap: 16 }}>
                             <div style={{ flex: '0 0 60%' }}>
                                 <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.4)', marginBottom: 8 }}>Projected Dropout Risk Window</div>
@@ -1057,7 +1076,7 @@ const StudentDetail = ({ student, onBack, onInterventionReq, setCounselingToast 
                                 </div>
                                 <div style={{
                                     fontSize: 12, marginTop: 4,
-                                    color: isHigh ? 'rgba(239,68,68,0.8)' : risk.level === "MODERATE" ? 'rgba(245,158,11,0.8)' : 'rgba(0,212,255,0.8)'
+                                    color: isHigh ? 'rgba(239,68,68,0.8)' : risk.level === "MODERATE" ? 'rgba(245,158,11,0.8)' : 'rgba(191,161,74,0.8)'
                                 }}>
                                     {isHigh ? '⚠ Immediate intervention required' : risk.level === "MODERATE" ? '↑ Monitoring escalation recommended' : '✓ Student trajectory is stable'}
                                 </div>
@@ -1075,7 +1094,7 @@ const StudentDetail = ({ student, onBack, onInterventionReq, setCounselingToast 
                                         <div style={{
                                             width: 10, height: 10, borderRadius: 5, background: color, position: 'absolute', top: -3,
                                             left: student.dropoutRiskWindow === "1–3 Months" ? '20%' : student.dropoutRiskWindow === "3–6 Months" ? '40%' : student.dropoutRiskWindow === "6–12 Months" ? '70%' : '0%',
-                                            boxShadow: `0 0 8px ${color}`
+                                            boxShadow: isSafe ? 'none' : `0 0 8px ${color}`
                                         }}></div>
                                     </div>
                                 </div>
@@ -1096,7 +1115,7 @@ const StudentDetail = ({ student, onBack, onInterventionReq, setCounselingToast 
                     {/* Panel D: Mental Health & Wellbeing */}
                     <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)', backdropFilter: 'blur(20px)', borderRadius: 20, padding: 24, marginBottom: 24 }}>
                         <div style={{ fontFamily: 'Syne', fontSize: '1.5rem', fontWeight: 700, marginBottom: 8 }}>🧠 Mental Health & Wellbeing</div>
-                        <div style={{ height: 2, borderRadius: 1, background: 'linear-gradient(90deg, #00D4FF, transparent)', width: 0, animation: 'expandLine 1s 0.2s ease forwards', marginBottom: 24 }}></div>
+                        <div style={{ height: 2, borderRadius: 1, background: 'linear-gradient(90deg, #BFA14A, transparent)', width: 0, animation: 'expandLine 1s 0.2s ease forwards', marginBottom: 24 }}></div>
                         <div style={{ display: 'flex', flexDirection: 'row', gap: 16 }}>
                             <div style={{ flex: '0 0 40%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                                 <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.4)', marginBottom: 12, textAlign: 'center' }}>Behavioral Stress Index</div>
@@ -1130,8 +1149,7 @@ const StudentDetail = ({ student, onBack, onInterventionReq, setCounselingToast 
                                         </div>
                                         <button
                                             onClick={() => {
-                                                setCounselingToast(true);
-                                                setTimeout(() => setCounselingToast(false), 3000);
+                                                showToast('✓ Counseling referral logged');
                                             }}
                                             style={{ marginTop: 12, background: 'rgba(245,158,11,0.15)', border: '1px solid rgba(245,158,11,0.3)', color: '#F59E0B', borderRadius: 8, padding: '8px 16px', fontSize: 12, cursor: 'pointer', transition: 'background 0.2s ease' }}
                                             onMouseOver={(e) => e.target.style.background = 'rgba(245,158,11,0.25)'}
@@ -1182,10 +1200,10 @@ const StudentDetail = ({ student, onBack, onInterventionReq, setCounselingToast 
                                     <div className="text-sm text-gray-400">Provide structured study plan for core subjects.</div>
                                 </Card>
                             ) : (
-                                <Card tier={2} delay={0.7} className="min-w-[280px] snap-center border-l-4 border-l-[#00D4FF] flex-shrink-0">
+                                <Card tier={2} delay={0.7} className="min-w-[280px] snap-center border-l-4 border-l-[#BFA14A] flex-shrink-0">
                                     <div className="flex justify-between items-start mb-2">
-                                        <div className="w-10 h-10 rounded-full bg-[#00D4FF]/20 flex items-center justify-center">
-                                            <ShieldCheck className="w-5 h-5 text-[#00D4FF]" />
+                                        <div className="w-10 h-10 rounded-full bg-[#BFA14A]/[0.18] flex items-center justify-center">
+                                            <ShieldCheck className="w-5 h-5 text-[#BFA14A]" />
                                         </div>
                                     </div>
                                     <div className="font-bold text-lg mb-1">General Monitoring</div>
@@ -1193,11 +1211,11 @@ const StudentDetail = ({ student, onBack, onInterventionReq, setCounselingToast 
                                 </Card>
                             )}
                         </div>
-                        <button onClick={onInterventionReq} className="mt-6 btn-gradient px-6 py-3 rounded-xl font-bold flex items-center gap-2">
+                        <button onClick={onInterventionReq} onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.transition = 'all 0.25s ease'; e.currentTarget.style.boxShadow = '0 6px 18px rgba(191,161,74,0.16)'; }} onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0px)'; e.currentTarget.style.boxShadow = 'none'; }} className="mt-6 btn-gradient px-6 py-3 rounded-xl font-bold flex items-center gap-2">
                             <Zap className="w-5 h-5" /> Trigger New Intervention
                         </button>
                     </div>
-                </>
+                </div>
             )}
             <Footer />
         </div>
@@ -1227,25 +1245,49 @@ const InterventionsPanel = ({ students }) => {
             <HeaderUnderline title="Intervention Command Center" />
 
             <div className="flex gap-4 mb-6">
-                <Card delay={0.1} className="flex-1 min-w-[150px]">
+                <Card delay={0.1} className="flex-1 min-w-[150px]" style={{
+                    animationName: 'staggerFadeUp',
+                    animationDuration: '260ms',
+                    animationTimingFunction: 'ease-out',
+                    animationFillMode: 'both',
+                    animationDelay: '0s'
+                }}>
                     <div className="text-gray-400 text-sm font-semibold mb-1 flex items-center gap-2">
                         <Activity className="w-4 h-4 text-white" /> Total Logged
                     </div>
                     <div className="text-3xl font-bold text-white">{interventions.length}</div>
                 </Card>
-                <Card delay={0.2} className="flex-1 min-w-[150px] border-amber-500/30">
+                <Card delay={0.2} className="flex-1 min-w-[150px] border-amber-500/30" style={{
+                    animationName: 'staggerFadeUp',
+                    animationDuration: '260ms',
+                    animationTimingFunction: 'ease-out',
+                    animationFillMode: 'both',
+                    animationDelay: '0.06s'
+                }}>
                     <div className="text-gray-400 text-sm font-semibold mb-1 flex items-center gap-2">
                         <Clock className="w-4 h-4 text-amber-500" /> Pending
                     </div>
                     <div className="text-3xl font-bold text-amber-500">{pending}</div>
                 </Card>
-                <Card delay={0.3} className="flex-1 min-w-[150px] border-[#00D4FF]/30">
+                <Card delay={0.3} className="flex-1 min-w-[150px] border-[#BFA14A]/30" style={{
+                    animationName: 'staggerFadeUp',
+                    animationDuration: '260ms',
+                    animationTimingFunction: 'ease-out',
+                    animationFillMode: 'both',
+                    animationDelay: '0.12s'
+                }}>
                     <div className="text-gray-400 text-sm font-semibold mb-1 flex items-center gap-2">
-                        <Zap className="w-4 h-4 text-[#00D4FF]" /> Active
+                        <Zap className="w-4 h-4 text-[#BFA14A]" /> Active
                     </div>
-                    <div className="text-3xl font-bold text-[#00D4FF]">{active}</div>
+                    <div className="text-3xl font-bold text-[#BFA14A]">{active}</div>
                 </Card>
-                <Card delay={0.4} className="flex-1 min-w-[150px] border-green-500/30">
+                <Card delay={0.4} className="flex-1 min-w-[150px] border-green-500/30" style={{
+                    animationName: 'staggerFadeUp',
+                    animationDuration: '260ms',
+                    animationTimingFunction: 'ease-out',
+                    animationFillMode: 'both',
+                    animationDelay: '0.18s'
+                }}>
                     <div className="text-gray-400 text-sm font-semibold mb-1 flex items-center gap-2">
                         <CheckCircle2 className="w-4 h-4 text-green-500" /> Completed
                     </div>
@@ -1276,8 +1318,8 @@ const InterventionsPanel = ({ students }) => {
                                 <tr key={inv.id} className={`border-b border-white/5 transition-all duration-500 hover:bg-white/5 ${inv.status === "COMPLETE" ? "opacity-50" : ""}`}>
                                     <td className="p-4">
                                         <div className="flex items-center gap-3">
-                                            <div className="w-8 h-8 rounded-full flex items-center justify-center font-bold text-xs bg-[#0A0F1E] border"
-                                                style={{ borderColor: color, color: color }}>
+                                            <div className="w-8 h-8 rounded-full flex items-center justify-center font-bold text-xs bg-[#0B0B0C] border"
+                                                style={{ borderColor: risk.level === "SAFE" ? 'rgba(191,161,74,0.26)' : color, color: color }}>
                                                 {s.name.split(' ').map(n => n[0]).join('')}
                                             </div>
                                             <div className="font-bold text-white">{s.name}</div>
@@ -1290,7 +1332,7 @@ const InterventionsPanel = ({ students }) => {
                                     <td className="p-4 text-gray-300">{inv.assigned}</td>
                                     <td className="p-4 text-gray-300">{inv.date}</td>
                                     <td className="p-4 text-center">
-                                        <span className={`px-3 py-1 rounded-full text-xs font-bold border ${inv.status === "PENDING" ? "text-amber-500 border-amber-500/20 bg-amber-500/10" : inv.status === "ACTIVE" ? "text-[#00D4FF] border-[#00D4FF]/20 bg-[#00D4FF]/10" : "text-green-500 border-green-500/20 bg-green-500/10"}`}>
+                                        <span className={`px-3 py-1 rounded-full text-xs font-bold border ${inv.status === "PENDING" ? "text-amber-500 border-amber-500/20 bg-amber-500/10" : inv.status === "ACTIVE" ? "text-[#BFA14A] border-[#BFA14A]/[0.18] bg-[#BFA14A]/[0.08]" : "text-green-500 border-green-500/20 bg-green-500/10"}`}>
                                             {inv.status}
                                         </span>
                                     </td>
@@ -1319,9 +1361,54 @@ const App = () => {
     const [currentRole, setCurrentRole] = useState(null);
     const [selectedStudent, setSelectedStudent] = useState(null);
     const [showInterventionModal, setShowInterventionModal] = useState(false);
-    const [counselingToast, setCounselingToast] = useState(false);
+    const [pageVisible, setPageVisible] = useState(true);
+    const [skeletonLoading, setSkeletonLoading] = useState(false);
+    const [displayScore, setDisplayScore] = useState(0);
+    const [toastVisible, setToastVisible] = useState(false);
+    const [toastMessage, setToastMessage] = useState('');
+    const scoreIntervalRef = useRef(null);
 
     const [students] = useState(() => generateStudents());
+
+    const navigateTo = (targetPage, studentObj = null) => {
+        setPageVisible(false);
+        setTimeout(() => {
+            setCurrentPage(targetPage);
+            if (studentObj !== null) setSelectedStudent(studentObj);
+            setPageVisible(true);
+        }, 200);
+    };
+
+    const openStudentDetail = (student) => {
+        navigateTo('student', student);
+        setSkeletonLoading(true);
+        setDisplayScore(0);
+        setTimeout(() => {
+            setSkeletonLoading(false);
+        }, 600);
+    };
+
+    useEffect(() => {
+        if (!selectedStudent || skeletonLoading) return;
+        const target = selectedStudent.riskScore || calculateRiskScore(selectedStudent).score;
+        let current = 0;
+        clearInterval(scoreIntervalRef.current);
+        scoreIntervalRef.current = setInterval(() => {
+            current += Math.ceil((target - current) / 6);
+            if (current >= target) {
+                current = target;
+                clearInterval(scoreIntervalRef.current);
+            }
+            setDisplayScore(current);
+        }, 18);
+        return () => clearInterval(scoreIntervalRef.current);
+    }, [selectedStudent, skeletonLoading]);
+
+    const showToast = (message) => {
+        setToastMessage(message);
+        setToastVisible(true);
+        setTimeout(() => setToastVisible(false), 3000);
+    };
 
     const handleLogin = (role) => {
         setCurrentRole(role);
@@ -1331,19 +1418,19 @@ const App = () => {
     };
 
     const handleLogout = () => {
-        setCurrentPage("login");
-        setCurrentRole(null);
-        setSelectedStudent(null);
+        navigateTo("login"); setCurrentRole(null); setSelectedStudent(null);
     };
 
-    const handleNavigate = (page) => {
-        setCurrentPage(page);
-        setSelectedStudent(null);
-    };
+    const handleNavigate = (page) => { navigateTo(page); setSelectedStudent(null); };
 
     const InterventionModal = () => (
-        <div className="fixed inset-0 bg-[#0A0F1E]/80 backdrop-blur-md z-50 flex flex-col items-center justify-center p-4 animate-fade-up">
-            <Card tier={3} className="w-full max-w-lg p-8 relative border-amber-500/30">
+        <div className="fixed inset-0 z-50 flex flex-col items-center justify-center p-4"
+            style={{
+                background: 'rgba(0,0,0,0.55)',
+                backdropFilter: 'blur(6px)',
+                animation: 'overlayFadeIn 200ms ease forwards'
+            }}>
+            <Card tier={3} className="w-full max-w-lg p-8 relative border-amber-500/30" style={{ animation: 'modalScaleIn 220ms ease forwards' }}>
                 <h3 className="text-2xl font-bold mb-4 flex items-center gap-2"><Zap className="w-6 h-6 text-amber-500" /> Trigger Action</h3>
                 <p className="text-gray-400 mb-6">Select automated intervention for {selectedStudent?.name}</p>
 
@@ -1355,12 +1442,12 @@ const App = () => {
                         </div>
                         <Users className="text-amber-500 w-5 h-5" />
                     </button>
-                    <button className="w-full text-left p-4 rounded-xl border border-white/10 hover:border-[#00D4FF] flex justify-between items-center bg-white/5 transition-colors">
+                    <button className="w-full text-left p-4 rounded-xl border border-white/10 hover:border-[#BFA14A] flex justify-between items-center bg-white/5 transition-colors">
                         <div>
                             <div className="font-bold text-white">Assign to Remedial Cluster</div>
                             <div className="text-xs text-gray-400">Add student to upcoming remedial sessions</div>
                         </div>
-                        <BookOpen className="text-[#00D4FF] w-5 h-5" />
+                        <BookOpen className="text-[#BFA14A] w-5 h-5" />
                     </button>
                 </div>
 
@@ -1368,10 +1455,7 @@ const App = () => {
                     <button onClick={() => setShowInterventionModal(false)} className="flex-1 py-3 rounded-xl border border-white/20 text-white font-bold hover:bg-white/5 transition-colors">
                         Cancel
                     </button>
-                    <button onClick={() => {
-                        setShowInterventionModal(false);
-                        alert("Intervention triggered successfully.");
-                    }} className="flex-1 py-3 rounded-xl bg-gradient-to-r from-amber-500 to-red-500 text-white font-bold hover:opacity-90 transition-opacity">
+                    <button onClick={() => { setShowInterventionModal(false); showToast('✓ Intervention triggered successfully.'); }} className="flex-1 py-3 rounded-xl bg-gradient-to-r from-amber-500 to-red-500 text-white font-bold hover:opacity-90 transition-opacity">
                         Confirm Action
                     </button>
                 </div>
@@ -1385,14 +1469,14 @@ const App = () => {
             <div className="ambient-glow-topRight"></div>
 
             {currentPage !== "login" && (
-                <nav className="w-full border-b border-white/10 bg-[#0A0F1E]/80 backdrop-blur-lg sticky top-0 z-40">
+                <nav className="w-full border-b border-white/10 bg-[#0B0B0C]/80 backdrop-blur-lg sticky top-0 z-40">
                     <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
                         <div className="flex items-center gap-2 cursor-pointer" onClick={() => handleNavigate('admin')} style={{ display: 'flex', alignItems: 'center' }}>
-                            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#00D4FF] to-[#7B6EF6] flex items-center justify-center">
+                            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#A88C3D] to-[#BFA14A] flex items-center justify-center">
                                 <Brain className="w-5 h-5 text-white" />
                             </div>
                             <div style={{ display: 'flex', flexDirection: 'column' }}>
-                                <span style={{ fontFamily: 'Syne', fontWeight: 700, fontSize: 20, background: 'linear-gradient(135deg,#00D4FF,#7B6EF6)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', lineHeight: 1.1 }}>Continuum</span>
+                                <span style={{ fontFamily: 'Syne', fontWeight: 700, fontSize: 20, background: 'linear-gradient(135deg,#A88C3D,#BFA14A)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', lineHeight: 1.1 }}>Continuum</span>
                                 <div style={{ fontSize: 10, color: 'rgba(255,255,255,0.3)', fontFamily: 'DM Sans', letterSpacing: '0.5px', marginTop: 1, lineHeight: 1 }}>Academic Stability Engine</div>
                             </div>
                             <div style={{ display: 'inline-flex', alignItems: 'center', gap: 5, background: 'rgba(197,25,45,0.1)', border: '1px solid rgba(197,25,45,0.3)', borderRadius: 20, padding: '3px 10px', marginLeft: 12 }}>
@@ -1438,33 +1522,32 @@ const App = () => {
             )}
 
             <main className="relative z-10 min-h-[calc(100vh-64px)] overflow-x-hidden">
-                {currentPage === "login" && <LoginPage onLogin={handleLogin} />}
-                {currentPage === "admin" && <AdminDashboard students={students} onNavigate={handleNavigate} />}
-                {currentPage === "faculty" && <FacultyDashboard students={students} onSelectStudent={(s) => { setSelectedStudent(s); setCurrentPage("student"); }} />}
-                {currentPage === "student" && selectedStudent && <StudentDetail student={selectedStudent} onBack={() => setCurrentPage("faculty")} onInterventionReq={() => setShowInterventionModal(true)} setCounselingToast={setCounselingToast} />}
-                {currentPage === "interventions" && <InterventionsPanel students={students} />}
+                <div style={{
+                    opacity: pageVisible ? 1 : 0,
+                    transform: pageVisible ? 'translateX(0px)' : 'translateX(12px)',
+                    transition: pageVisible ? 'opacity 250ms ease, transform 250ms ease' : 'opacity 200ms ease, transform 200ms ease',
+                    willChange: 'opacity, transform'
+                }}>
+
+                    {currentPage === "login" && <LoginPage onLogin={handleLogin} />}
+                    {currentPage === "admin" && <AdminDashboard students={students} onNavigate={handleNavigate} />}
+                    {currentPage === "faculty" && <FacultyDashboard students={students} onSelectStudent={(s) => openStudentDetail(s)} />}
+                    {currentPage === "student" && selectedStudent && <StudentDetail
+                        student={selectedStudent}
+                        onBack={() => navigateTo("faculty")}
+                        onInterventionReq={() => setShowInterventionModal(true)}
+                        showToast={showToast}
+                        skeletonLoading={skeletonLoading}
+                        displayScore={displayScore}
+                    />}
+                    {currentPage === "interventions" && <InterventionsPanel students={students} />}
+
+                </div>
             </main>
 
             {showInterventionModal && <InterventionModal />}
 
-            {counselingToast && (
-                <div style={{
-                    position: 'fixed', bottom: 24, right: 24,
-                    background: 'rgba(16,185,129,0.92)',
-                    backdropFilter: 'blur(10px)',
-                    border: '1px solid rgba(16,185,129,0.4)',
-                    color: 'white',
-                    padding: '12px 20px',
-                    borderRadius: 10,
-                    fontSize: 13,
-                    fontFamily: 'DM Sans',
-                    display: 'flex', alignItems: 'center', gap: 8,
-                    zIndex: 9999,
-                    animation: 'fadeSlideUp 0.3s ease'
-                }}>
-                    <CheckCircle2 size={14} /> Counseling referral logged
-                </div>
-            )}
+
         </div>
     );
 };
