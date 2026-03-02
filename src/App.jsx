@@ -1441,9 +1441,88 @@ const InterventionsPanel = ({ students }) => {
     );
 };
 
+const UploadPage = ({ setStudents, showToast }) => {
+    const handleFileUpload = (e) => {
+        const file = e.target.files[0];
+        if (!file || !file.name.endsWith('.csv')) return;
+
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            try {
+                const text = event.target.result;
+                const lines = text.split('\n').map(l => l.trim()).filter(l => l);
+                if (lines.length < 2) return;
+
+                const headers = lines[0].split(',').map(h => h.trim().toLowerCase());
+                const reqCols = ['id', 'name', 'dept', 'semester', 'riskscore', 'risklevel'];
+                const isValid = reqCols.every(c => headers.includes(c));
+                if (!isValid) return;
+
+                const newStudents = lines.slice(1).map(line => {
+                    const values = line.split(',');
+                    const student = {};
+                    headers.forEach((h, i) => {
+                        student[h] = values[i]?.trim();
+                    });
+
+                    return {
+                        id: student.id,
+                        name: student.name,
+                        dept: student.dept,
+                        sem: parseInt(student.semester) || 1,
+                        attendance: [80, 80, 80, 80, 80],
+                        marks: [70, 70, 70, 70, 70],
+                        riskScore: parseInt(student.riskscore) || 50,
+                        riskLevel: student.risklevel ? student.risklevel.toUpperCase() : 'MODERATE',
+                        risk: {
+                            score: parseInt(student.riskscore) || 50,
+                            level: student.risklevel ? student.risklevel.toUpperCase() : 'MODERATE',
+                            trend: 'stable',
+                            breakdown: { attendance: 0, marks: 0, lms: 0, assignments: 0, behavior: 0, competitions: 0 }
+                        },
+                        financialRisk: 50,
+                        socioEconomic: 50,
+                        mentalHealth: 50
+                    };
+                });
+
+                setStudents(prev => [...prev, ...newStudents]);
+                if (showToast) showToast('✓ Dataset uploaded successfully');
+            } catch (err) {
+                console.error("CSV Parsing Error:", err);
+            }
+        };
+        reader.readAsText(file);
+    };
+
+    return (
+        <div className="p-6 animate-page max-w-7xl mx-auto">
+            <HeaderUnderline title="Upload Student Dataset" />
+            <div style={{ maxWidth: 600, margin: '0 auto', marginTop: 40 }}>
+                <div style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(191,161,74,0.18)', borderRadius: 16, padding: 24 }}>
+                    <h3 className="text-xl font-bold mb-2 text-white">Upload CSV</h3>
+                    <p className="text-sm text-gray-400 mb-6">
+                        Upload a bulk dataset of student records. Required columns: id, name, dept, semester, riskScore, riskLevel.
+                    </p>
+                    <input
+                        type="file"
+                        accept=".csv"
+                        onChange={handleFileUpload}
+                        className="block w-full text-sm text-gray-400
+                                   file:mr-4 file:py-2 file:px-4
+                                   file:rounded-xl file:border-0
+                                   file:text-sm file:font-semibold
+                                   file:bg-[#BFA14A]/10 file:text-[#BFA14A]
+                                   hover:file:bg-[#BFA14A]/20 transition-all cursor-pointer"
+                    />
+                </div>
+            </div>
+        </div>
+    );
+};
+
 const App = () => {
     const [currentPage, setCurrentPage] = useState("login");
-    const [currentRole, setCurrentRole] = useState(null);
     const [selectedStudent, setSelectedStudent] = useState(null);
     const [showInterventionModal, setShowInterventionModal] = useState(false);
     const [pageVisible, setPageVisible] = useState(true);
@@ -1453,7 +1532,7 @@ const App = () => {
     const [toastMessage, setToastMessage] = useState('');
     const scoreIntervalRef = useRef(null);
 
-    const [role, setRole] = useState("ADMIN");
+    const [role, setRole] = useState(null);
     const [currentStudentId, setCurrentStudentId] = useState("S001");
     const [animatedStats, setAnimatedStats] = useState({
         total: 0, highRisk: 0,
@@ -1462,10 +1541,17 @@ const App = () => {
     const statsAnimatedRef = useRef(false);
     const [adminLoading, setAdminLoading] = useState(false);
 
-    const [students] = useState(() => generateStudents());
+    const [students, setStudents] = useState(() => generateStudents());
 
     const PERMISSIONS = {
         ADMIN: {
+            canViewAllStudents: true,
+            canAccessStudentsPage: true,
+            canAccessInterventions: true,
+            canViewFullAnalytics: true,
+            canOpenAnyStudent: true,
+        },
+        FACULTY: {
             canViewAllStudents: true,
             canAccessStudentsPage: true,
             canAccessInterventions: true,
@@ -1480,11 +1566,12 @@ const App = () => {
             canOpenAnyStudent: false,
         }
     };
-    const can = (permission) => PERMISSIONS[role][permission];
+    const can = (permission) => role && PERMISSIONS[role] ? PERMISSIONS[role][permission] : false;
 
     const navigateTo = (targetPage, studentObj = null) => {
         if (targetPage === 'faculty' && !can('canAccessStudentsPage')) return;
         if (targetPage === 'interventions' && !can('canAccessInterventions')) return;
+        if (targetPage === 'upload' && role === 'STUDENT') return;
         setPageVisible(false);
         setTimeout(() => {
             setCurrentPage(targetPage);
@@ -1560,15 +1647,16 @@ const App = () => {
         setTimeout(() => setToastVisible(false), 3000);
     };
 
-    const handleLogin = (role) => {
-        setCurrentRole(role);
-        if (role === "admin") setCurrentPage("admin");
-        else if (role === "faculty") setCurrentPage("faculty");
+    const handleLogin = (loginRole) => {
+        const uRole = loginRole.toUpperCase();
+        setRole(uRole);
+        if (uRole === "ADMIN") setCurrentPage("admin");
+        else if (uRole === "FACULTY") setCurrentPage("faculty");
         else setCurrentPage("admin");
     };
 
     const handleLogout = () => {
-        navigateTo("login"); setCurrentRole(null); setSelectedStudent(null);
+        navigateTo("login"); setRole(null); setSelectedStudent(null);
     };
 
     const handleNavigate = (page) => { navigateTo(page); setSelectedStudent(null); };
@@ -1640,7 +1728,8 @@ const App = () => {
                                 {[
                                     { label: 'Dashboard', page: 'admin', always: true },
                                     { label: 'Students', page: 'faculty', show: can('canAccessStudentsPage') },
-                                    { label: 'Interventions', page: 'interventions', show: can('canAccessInterventions') }
+                                    { label: 'Interventions', page: 'interventions', show: can('canAccessInterventions') },
+                                    { label: 'Upload', page: 'upload', show: role === 'ADMIN' || role === 'FACULTY' }
                                 ].filter(tab => tab.always || tab.show).map(tab => (
                                     <button
                                         key={tab.page}
@@ -1673,31 +1762,7 @@ const App = () => {
                         <div className="flex items-center gap-4">
                             <div className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10">
                                 <div className="w-5 h-5 rounded-full bg-gradient-to-br from-amber-400 to-red-500"></div>
-                                <span className="text-xs font-bold uppercase tracking-wider">{currentRole}</span>
-                            </div>
-                            <div style={{
-                                display: 'flex', alignItems: 'center', gap: 6,
-                                background: 'rgba(255,255,255,0.04)',
-                                border: '1px solid rgba(191,161,74,0.18)',
-                                borderRadius: 8, padding: '4px 6px'
-                            }}>
-                                {['ADMIN', 'STUDENT'].map(r => (
-                                    <button
-                                        key={r}
-                                        onClick={() => setRole(r)}
-                                        style={{
-                                            background: role === r ? 'rgba(191,161,74,0.14)' : 'transparent',
-                                            border: role === r ? '1px solid rgba(191,161,74,0.30)' : '1px solid transparent',
-                                            borderRadius: 6,
-                                            color: role === r ? '#BFA14A' : 'rgba(255,255,255,0.35)',
-                                            fontSize: 11, fontFamily: 'DM Sans',
-                                            fontWeight: 500, padding: '3px 10px',
-                                            cursor: 'pointer',
-                                            transition: 'all 0.2s ease',
-                                            letterSpacing: '0.3px'
-                                        }}
-                                    >{r}</button>
-                                ))}
+                                <span className="text-xs font-bold uppercase tracking-wider">{role}</span>
                             </div>
                             <button onClick={handleLogout} className="p-2 text-gray-400 hover:text-white hover:bg-white/5 rounded-lg transition-colors">
                                 <LogOut className="w-5 h-5" />
@@ -1727,6 +1792,7 @@ const App = () => {
                         displayScore={displayScore}
                     />}
                     {currentPage === "interventions" && <InterventionsPanel students={students} />}
+                    {currentPage === "upload" && (role === "ADMIN" || role === "FACULTY") && <UploadPage setStudents={setStudents} showToast={showToast} />}
 
                 </div>
             </main>
