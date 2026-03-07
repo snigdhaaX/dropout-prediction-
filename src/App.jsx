@@ -353,7 +353,7 @@ const LoginPage = ({ onLogin }) => {
     );
 };
 
-const AdminDashboard = ({ students, onNavigate, currentStudentId, animatedStats, adminLoading, can }) => {
+const AdminDashboard = ({ students, onNavigate, currentStudentId, animatedStats, adminLoading, can, role }) => {
     const data = useMemo(() => {
         let risks = students.map(s => calculateRiskScore(s));
         let high = risks.filter(r => r.level === "HIGH").length;
@@ -380,7 +380,14 @@ const AdminDashboard = ({ students, onNavigate, currentStudentId, animatedStats,
             { name: 'High Risk', value: high, color: '#EF4444' }
         ];
 
-        return { high, moderate, safe, avg, deptChart, dropoutData, pieData };
+        const monthlyAtt = [
+            { week: "Week 1", attendance: 80 },
+            { week: "Week 2", attendance: 74 },
+            { week: "Week 3", attendance: 68 },
+            { week: "Week 4", attendance: 64 }
+        ];
+
+        return { high, moderate, safe, avg, deptChart, dropoutData, pieData, monthlyAtt };
     }, [students]);
 
     return (
@@ -401,13 +408,6 @@ const AdminDashboard = ({ students, onNavigate, currentStudentId, animatedStats,
                                 <Users className="w-4 h-4 text-[#4DA3FF]" /> Total Students
                             </div>
                             <div className="text-3xl font-bold text-white mb-2">{TOTAL_STUDENTS}</div>
-                            <div className="h-10">
-                                <ResponsiveContainer width="100%" height="100%">
-                                    <LineChart data={[{ v: 10 }, { v: 12 }, { v: 11 }, { v: 14 }, { v: 15 }]}>
-                                        <Line type="monotone" dataKey="v" stroke="#4DA3FF" strokeWidth={2} dot={false} />
-                                    </LineChart>
-                                </ResponsiveContainer>
-                            </div>
                         </Card>
 
                         <Card delay={0.2} className="w-full md:w-1/4 risk-pulse relative overflow-hidden bg-[#EF4444]/5 border-[#EF4444]/20" style={{
@@ -435,10 +435,10 @@ const AdminDashboard = ({ students, onNavigate, currentStudentId, animatedStats,
                         }}
                             onClick={() => onNavigate('interventions')}>
                             <div className="text-gray-400 text-sm font-semibold mb-1 flex items-center gap-2">
-                                <Activity className="w-4 h-4 text-[#F59E0B]" /> Interventions
+                                <Activity className="w-4 h-4 text-[#4DA3FF]" /> Interventions
                             </div>
-                            <div className="text-4xl font-bold text-[#F59E0B]">8</div>
-                            <div className="text-xs text-[#FBBF24] mt-2">4 pending review</div>
+                            <div className="text-3xl font-bold text-white mb-2">8</div>
+                            <div className="text-xs text-[#4DA3FF] mt-2">4 pending review</div>
                         </Card>
 
                         <Card delay={0.4} className="w-full md:w-1/4" style={{
@@ -449,12 +449,32 @@ const AdminDashboard = ({ students, onNavigate, currentStudentId, animatedStats,
                             animationDelay: '0.18s'
                         }}>
                             <div className="text-gray-400 text-sm font-semibold mb-1 flex items-center gap-2">
-                                <Brain className="w-4 h-4 text-purple-400" /> Avg Risk Score
+                                <Brain className="w-4 h-4 text-[#8CC7FF]" /> Avg Risk Score
                             </div>
-                            <div className="text-4xl font-bold text-purple-400">{data.avg}</div>
-                            <div className="text-xs text-purple-300 mt-2">Overall stability</div>
+                            <div className="text-3xl font-bold text-white mb-2">{data.avg}</div>
+                            <div className="text-xs text-[#8CC7FF] mt-2 opacity-80">Overall stability</div>
                         </Card>
                     </div>
+
+                    {role === "ADMIN" && (
+                        <Card className="w-full mb-6" style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 14, padding: 20 }}>
+                            <div className="flex flex-row justify-between items-start mb-4 px-2">
+                                <h3 className="text-lg font-semibold">Monthly Attendance Trend (All Students)</h3>
+                                <div style={{ color: '#EF4444', fontSize: '12px' }}>
+                                    ↓ Attendance dropped 16% this month
+                                </div>
+                            </div>
+                            <ResponsiveContainer width="100%" height={220}>
+                                <LineChart data={data.monthlyAtt} margin={{ top: 20, right: 10, left: 0, bottom: 0 }}>
+                                    <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.08)" vertical={false} />
+                                    <XAxis dataKey="week" stroke="#8CC7FF" axisLine={false} tickLine={false} />
+                                    <YAxis stroke="#8CC7FF" axisLine={false} tickLine={false} />
+                                    <RechartsTooltip cursor={{ fill: 'rgba(255,255,255,0.05)' }} contentStyle={{ backgroundColor: '#10293F', border: '1px solid rgba(255,255,255,0.1)' }} />
+                                    <Line type="monotone" dataKey="attendance" stroke="#4DA3FF" strokeWidth={3} dot={{ r: 4, fill: '#8CC7FF', strokeWidth: 0 }} activeDot={{ r: 6, fill: '#8CC7FF' }} label={{ position: 'top', fill: '#8CC7FF', fontSize: 12, formatter: (value) => `${value}%` }} />
+                                </LineChart>
+                            </ResponsiveContainer>
+                        </Card>
+                    )}
 
                     <div className="flex flex-col lg:flex-row gap-6">
                         <div className="w-full lg:w-[60%] space-y-6">
@@ -1179,6 +1199,21 @@ const StudentDetail = ({ student, onBack, onInterventionReq, skeletonLoading, di
                         </div>
                     </div>
 
+                    {/* Panel D: Stress Score */}
+                    <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)', backdropFilter: 'blur(20px)', borderRadius: 20, padding: 24, marginBottom: 24 }}>
+                        <div style={{ fontFamily: 'Syne', fontSize: 22, fontWeight: 600, letterSpacing: 0.3, marginBottom: 8 }}>🧠 Stress Score</div>
+                        <div style={{ height: 2, borderRadius: 1, background: 'linear-gradient(90deg, #4DA3FF, transparent)', width: 0, animation: 'expandLine 1s 0.2s ease forwards', marginBottom: 24 }}></div>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+                            <div style={{ fontSize: 13, color: 'rgba(255,255,255,0.4)', marginBottom: 4 }}>Mental Stress Index</div>
+                            <div style={{ fontSize: 28, fontWeight: 700, fontFamily: 'Syne', color: (typeof student.mentalHealth === 'object' ? student.mentalHealth.behavioralStressIndex : student.mentalHealth) <= 40 ? '#34D399' : (typeof student.mentalHealth === 'object' ? student.mentalHealth.behavioralStressIndex : student.mentalHealth) <= 70 ? '#F59E0B' : '#EF4444' }}>
+                                {typeof student.mentalHealth === 'object' ? student.mentalHealth.behavioralStressIndex : student.mentalHealth} / 100
+                            </div>
+                            <div style={{ fontSize: 13, color: (typeof student.mentalHealth === 'object' ? student.mentalHealth.behavioralStressIndex : student.mentalHealth) <= 40 ? '#34D399' : (typeof student.mentalHealth === 'object' ? student.mentalHealth.behavioralStressIndex : student.mentalHealth) <= 70 ? '#F59E0B' : '#EF4444', fontWeight: 500 }}>
+                                {(typeof student.mentalHealth === 'object' ? student.mentalHealth.behavioralStressIndex : student.mentalHealth) <= 40 ? 'Low Stress' : (typeof student.mentalHealth === 'object' ? student.mentalHealth.behavioralStressIndex : student.mentalHealth) <= 70 ? 'Moderate Stress' : 'High Stress'}
+                            </div>
+                        </div>
+                    </div>
+
                     <div className="mt-8 relative">
                         <HeaderUnderline title="⚡ Active Interventions" />
                         <div className="flex gap-4 overflow-x-auto pb-4 snap-x">
@@ -1362,8 +1397,10 @@ const InterventionsPanel = ({ students }) => {
     );
 };
 
-const UploadPage = ({ setStudents, showToast }) => {
-    const handleFileUpload = (e) => {
+const UploadPage = ({ setStudents, showToast, role }) => {
+    const isDataset = role === 'ADMIN';
+
+    const createUploadHandler = (type) => (e) => {
         const file = e.target.files[0];
         if (!file || !file.name.endsWith('.csv')) return;
 
@@ -1375,40 +1412,91 @@ const UploadPage = ({ setStudents, showToast }) => {
                 if (lines.length < 2) return;
 
                 const headers = lines[0].split(',').map(h => h.trim().toLowerCase());
-                const reqCols = ['id', 'name', 'dept', 'semester', 'riskscore', 'risklevel'];
-                const isValid = reqCols.every(c => headers.includes(c));
-                if (!isValid) return;
 
-                const newStudents = lines.slice(1).map(line => {
-                    const values = line.split(',');
-                    const student = {};
-                    headers.forEach((h, i) => {
-                        student[h] = values[i]?.trim();
+                if (type === 'dataset') {
+                    const reqCols = ['id', 'name', 'dept', 'semester', 'riskscore', 'risklevel'];
+                    const isValid = reqCols.every(c => headers.includes(c));
+                    if (!isValid) return;
+
+                    const newStudents = lines.slice(1).map(line => {
+                        const values = line.split(',');
+                        const student = {};
+                        headers.forEach((h, i) => {
+                            student[h] = values[i]?.trim();
+                        });
+
+                        return {
+                            id: student.id,
+                            name: student.name,
+                            dept: student.dept,
+                            sem: parseInt(student.semester) || 1,
+                            attendance: [80, 80, 80, 80, 80],
+                            marks: [70, 70, 70, 70, 70],
+                            riskScore: parseInt(student.riskscore) || 50,
+                            riskLevel: student.risklevel ? student.risklevel.toUpperCase() : 'MODERATE',
+                            risk: {
+                                score: parseInt(student.riskscore) || 50,
+                                level: student.risklevel ? student.risklevel.toUpperCase() : 'MODERATE',
+                                trend: 'stable',
+                                breakdown: { attendance: 0, marks: 0, lms: 0, assignments: 0, behavior: 0, competitions: 0 }
+                            },
+                            financialRisk: 50,
+                            socioEconomic: 50,
+                            mentalHealth: 50
+                        };
                     });
+                    setStudents(prev => [...prev, ...newStudents]);
+                } else if (type === 'attendance') {
+                    const reqCols = ['studentid', 'week', 'attendance'];
+                    const isValid = reqCols.every(c => headers.includes(c));
+                    if (!isValid) return;
 
-                    return {
-                        id: student.id,
-                        name: student.name,
-                        dept: student.dept,
-                        sem: parseInt(student.semester) || 1,
-                        attendance: [80, 80, 80, 80, 80],
-                        marks: [70, 70, 70, 70, 70],
-                        riskScore: parseInt(student.riskscore) || 50,
-                        riskLevel: student.risklevel ? student.risklevel.toUpperCase() : 'MODERATE',
-                        risk: {
-                            score: parseInt(student.riskscore) || 50,
-                            level: student.risklevel ? student.risklevel.toUpperCase() : 'MODERATE',
-                            trend: 'stable',
-                            breakdown: { attendance: 0, marks: 0, lms: 0, assignments: 0, behavior: 0, competitions: 0 }
-                        },
-                        financialRisk: 50,
-                        socioEconomic: 50,
-                        mentalHealth: 50
-                    };
-                });
+                    setStudents(prev => {
+                        const newStudents = [...prev];
+                        lines.slice(1).forEach(line => {
+                            const values = line.split(',');
+                            const record = {};
+                            headers.forEach((h, i) => {
+                                record[h] = values[i]?.trim();
+                            });
 
-                setStudents(prev => [...prev, ...newStudents]);
-                if (showToast) showToast('✓ Dataset uploaded successfully');
+                            const index = newStudents.findIndex(s => s.id === record.studentid);
+                            if (index !== -1) {
+                                newStudents[index] = {
+                                    ...newStudents[index],
+                                    attendance: [...newStudents[index].attendance, parseInt(record.attendance)]
+                                };
+                            }
+                        });
+                        return newStudents;
+                    });
+                } else if (type === 'marks') {
+                    const reqCols = ['studentid', 'subject', 'marks'];
+                    const isValid = reqCols.every(c => headers.includes(c));
+                    if (!isValid) return;
+
+                    setStudents(prev => {
+                        const newStudents = [...prev];
+                        lines.slice(1).forEach(line => {
+                            const values = line.split(',');
+                            const record = {};
+                            headers.forEach((h, i) => {
+                                record[h] = values[i]?.trim();
+                            });
+
+                            const index = newStudents.findIndex(s => s.id === record.studentid);
+                            if (index !== -1) {
+                                newStudents[index] = {
+                                    ...newStudents[index],
+                                    marks: [...newStudents[index].marks, parseInt(record.marks)]
+                                };
+                            }
+                        });
+                        return newStudents;
+                    });
+                }
+
+                if (showToast) showToast('✓ Data uploaded successfully');
             } catch (err) {
                 console.error("CSV Parsing Error:", err);
             }
@@ -1418,25 +1506,64 @@ const UploadPage = ({ setStudents, showToast }) => {
 
     return (
         <div className="p-6 animate-page max-w-7xl mx-auto">
-            <HeaderUnderline title="Upload Student Dataset" />
-            <div style={{ maxWidth: 600, margin: '0 auto', marginTop: 40 }}>
-                <div style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(77,163,255,0.18)', borderRadius: 16, padding: 24 }}>
-                    <h3 className="text-xl font-bold mb-2 text-white">Upload CSV</h3>
-                    <p className="text-sm text-gray-400 mb-6">
-                        Upload a bulk dataset of student records. Required columns: id, name, dept, semester, riskScore, riskLevel.
-                    </p>
-                    <input
-                        type="file"
-                        accept=".csv"
-                        onChange={handleFileUpload}
-                        className="block w-full text-sm text-gray-400
-                                   file:mr-4 file:py-2 file:px-4
-                                   file:rounded-xl file:border-0
-                                   file:text-sm file:font-semibold
-                                   file:bg-[#4DA3FF]/10 file:text-[#4DA3FF]
-                                   hover:file:bg-[#4DA3FF]/20 transition-all cursor-pointer"
-                    />
-                </div>
+            <HeaderUnderline title={isDataset ? "Upload Student Dataset" : "Upload Academic Data"} />
+            <div style={{ maxWidth: 800, margin: '0 auto', marginTop: 40, display: 'flex', flexDirection: isDataset ? 'column' : 'row', gap: 24 }}>
+                {isDataset ? (
+                    <div style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(77,163,255,0.18)', borderRadius: 16, padding: 24, flex: 1 }}>
+                        <h3 className="text-xl font-bold mb-2 text-white">Upload CSV</h3>
+                        <p className="text-sm text-gray-400 mb-6">
+                            Upload a bulk dataset of student records. Required columns: id, name, dept, semester, riskScore, riskLevel.
+                        </p>
+                        <input
+                            type="file"
+                            accept=".csv"
+                            onChange={createUploadHandler('dataset')}
+                            className="block w-full text-sm text-gray-400
+                                       file:mr-4 file:py-2 file:px-4
+                                       file:rounded-xl file:border-0
+                                       file:text-sm file:font-semibold
+                                       file:bg-[#4DA3FF]/10 file:text-[#4DA3FF]
+                                       hover:file:bg-[#4DA3FF]/20 transition-all cursor-pointer"
+                        />
+                    </div>
+                ) : (
+                    <>
+                        <div style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(77,163,255,0.18)', borderRadius: 16, padding: 24, flex: 1 }}>
+                            <h3 className="text-xl font-bold mb-2 text-white">Weekly Attendance</h3>
+                            <p className="text-sm text-gray-400 mb-6">
+                                Upload weekly attendance CSV files for student monitoring. Required columns: studentid, week, attendance.
+                            </p>
+                            <input
+                                type="file"
+                                accept=".csv"
+                                onChange={createUploadHandler('attendance')}
+                                className="block w-full text-sm text-gray-400
+                                           file:mr-4 file:py-2 file:px-4
+                                           file:rounded-xl file:border-0
+                                           file:text-sm file:font-semibold
+                                           file:bg-[#4DA3FF]/10 file:text-[#4DA3FF]
+                                           hover:file:bg-[#4DA3FF]/20 transition-all cursor-pointer"
+                            />
+                        </div>
+                        <div style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(77,163,255,0.18)', borderRadius: 16, padding: 24, flex: 1 }}>
+                            <h3 className="text-xl font-bold mb-2 text-white">Internal Assessment</h3>
+                            <p className="text-sm text-gray-400 mb-6">
+                                Upload assessment marks for student evaluation. Required columns: studentid, subject, marks.
+                            </p>
+                            <input
+                                type="file"
+                                accept=".csv"
+                                onChange={createUploadHandler('marks')}
+                                className="block w-full text-sm text-gray-400
+                                           file:mr-4 file:py-2 file:px-4
+                                           file:rounded-xl file:border-0
+                                           file:text-sm file:font-semibold
+                                           file:bg-[#4DA3FF]/10 file:text-[#4DA3FF]
+                                           hover:file:bg-[#4DA3FF]/20 transition-all cursor-pointer"
+                            />
+                        </div>
+                    </>
+                )}
             </div>
         </div>
     );
@@ -1699,7 +1826,7 @@ const App = () => {
                 }}>
 
                     {currentPage === "login" && <LoginPage onLogin={handleLogin} />}
-                    {currentPage === "admin" && <AdminDashboard students={students} onNavigate={handleNavigate} currentStudentId={currentStudentId} animatedStats={animatedStats} adminLoading={adminLoading} can={can} />}
+                    {currentPage === "admin" && <AdminDashboard students={students} onNavigate={handleNavigate} currentStudentId={currentStudentId} animatedStats={animatedStats} adminLoading={adminLoading} can={can} role={role} />}
                     {currentPage === "faculty" && <FacultyDashboard students={students} onSelectStudent={(s) => openStudentDetail(s)} can={can} currentStudentId={currentStudentId} openStudentDetail={openStudentDetail} />}
                     {currentPage === "student" && selectedStudent && <StudentDetail
                         student={selectedStudent}
@@ -1710,7 +1837,7 @@ const App = () => {
                         displayScore={displayScore}
                     />}
                     {currentPage === "interventions" && <InterventionsPanel students={students} />}
-                    {currentPage === "upload" && (role === "ADMIN" || role === "FACULTY") && <UploadPage setStudents={setStudents} showToast={showToast} />}
+                    {currentPage === "upload" && (role === "ADMIN" || role === "FACULTY") && <UploadPage setStudents={setStudents} showToast={showToast} role={role} />}
 
                 </div>
             </main>
