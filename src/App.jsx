@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
-import { 
-  BarChart, Bar, AreaChart, Area, LineChart, Line, PieChart, Pie, Cell, 
+import {
+  BarChart, Bar, AreaChart, Area, LineChart, Line, PieChart, Pie, Cell,
   XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, ResponsiveContainer, Legend
 } from 'recharts';
-import { 
+import {
   ShieldAlert, BookOpen, GraduationCap, Users, LayoutDashboard,
-  AlertTriangle, TrendingUp, TrendingDown, Minus, ChevronRight, 
+  AlertTriangle, TrendingUp, TrendingDown, Minus, ChevronRight,
   ArrowLeft, Brain, Activity, Clock, LogOut, CheckCircle2, Search,
   Filter, MoreVertical, ShieldCheck, Zap
 } from 'lucide-react';
@@ -125,30 +125,30 @@ const generateStudents = () => {
 const calculateRiskScore = (student) => {
   let att = student.attendance;
   let attScore = att[4] < 75 ? 25 : att[4] < 85 ? 15 : 5;
-  let attDeclining = att[2]>att[3] && att[3]>att[4];
-  if(attDeclining) attScore = Math.min(attScore+5, 25);
+  let attDeclining = att[2] > att[3] && att[3] > att[4];
+  if (attDeclining) attScore = Math.min(attScore + 5, 25);
 
   let marks = student.marks;
   let mScore = marks[4] < 50 ? 25 : marks[4] < 65 ? 15 : marks[4] < 75 ? 8 : 3;
-  let mDeclining = marks[2]>marks[3] && marks[3]>marks[4];
-  if(mDeclining) mScore = Math.min(mScore+5, 25);
+  let mDeclining = marks[2] > marks[3] && marks[3] > marks[4];
+  if (mDeclining) mScore = Math.min(mScore + 5, 25);
 
   let recentLMS = (student.lmsLogins[3] + student.lmsLogins[4]) / 2;
   let lmsScore = recentLMS < 3 ? 20 : recentLMS < 7 ? 12 : recentLMS < 14 ? 5 : 2;
 
   let d = student.assignmentDelays;
-  let aScore = d===0 ? 0 : d<=2 ? 5 : d<=4 ? 10 : 15;
+  let aScore = d === 0 ? 0 : d <= 2 ? 5 : d <= 4 ? 10 : 15;
 
   let b = student.behaviorIncidents;
-  let bScore = b===0 ? 0 : b===1 ? 4 : b===2 ? 7 : 10;
+  let bScore = b === 0 ? 0 : b === 1 ? 4 : b === 2 ? 7 : 10;
 
-  let cScore = student.competitions===0 ? 5 : student.competitions===1 ? 3 : 0;
+  let cScore = student.competitions === 0 ? 5 : student.competitions === 1 ? 3 : 0;
 
-  let total = Math.min(attScore+mScore+lmsScore+aScore+bScore+cScore, 100);
-  let level = total<=30 ? "SAFE" : total<=60 ? "MODERATE" : "HIGH";
-  
+  let total = Math.min(attScore + mScore + lmsScore + aScore + bScore + cScore, 100);
+  let level = total <= 30 ? "SAFE" : total <= 60 ? "MODERATE" : "HIGH";
+
   let trend = (attDeclining && mDeclining) ? "declining" :
-              (!attDeclining && !mDeclining) ? "stable" : "mixed";
+    (!attDeclining && !mDeclining) ? "stable" : "mixed";
   if (total <= 30 && trend === "stable") trend = "improving";
 
   return {
@@ -176,7 +176,7 @@ const HeaderUnderline = ({ title }) => (
 );
 
 const Card = ({ children, tier = 1, className = "", delay = 0, onClick }) => (
-  <div 
+  <div
     onClick={onClick}
     className={`card-tier-${tier} hover-lift p-5 animate-fade-up ${className} ${onClick ? 'cursor-pointer' : ''}`}
     style={{ animationDelay: `${delay}s` }}
@@ -206,7 +206,7 @@ const CustomTooltip = ({ active, payload, label }) => {
 
 const LoginPage = ({ onLogin }) => {
   const [role, setRole] = useState("Admin");
-  
+
   return (
     <div className="min-h-screen flex items-center justify-center relative">
       <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
@@ -223,7 +223,7 @@ const LoginPage = ({ onLogin }) => {
           }} />
         ))}
       </div>
-      
+
       <div className="card-tier-3 p-10 w-full max-w-md animate-fade-up z-10 flex flex-col items-center shadow-2xl relative">
         <div className="absolute -top-12 w-24 h-24 bg-[#00D4FF]/20 rounded-full blur-3xl"></div>
         <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#00D4FF] to-[#7B6EF6] flex items-center justify-center mb-4 relative z-10 block">
@@ -231,44 +231,43 @@ const LoginPage = ({ onLogin }) => {
         </div>
         <h1 className="text-4xl font-extrabold mb-2 text-gradient tracking-tight relative z-10">AcademiQ</h1>
         <p className="text-gray-400 mb-8 font-medium relative z-10">Academic Intelligence Platform</p>
-        
+
         <div className="flex w-full bg-white/5 p-1 rounded-xl mb-6 relative z-10">
           {["Admin", "Faculty", "Student"].map(r => (
             <button
               key={r}
               onClick={() => setRole(r)}
-              className={`flex-1 py-2 text-sm font-semibold rounded-lg transition-all duration-300 ${
-                role === r ? "bg-gradient-to-r from-[#00D4FF] to-[#7B6EF6] text-white shadow-lg" : "text-gray-400 hover:text-white"
-              }`}
+              className={`flex-1 py-2 text-sm font-semibold rounded-lg transition-all duration-300 ${role === r ? "bg-gradient-to-r from-[#00D4FF] to-[#7B6EF6] text-white shadow-lg" : "text-gray-400 hover:text-white"
+                }`}
             >
               {r}
             </button>
           ))}
         </div>
-        
+
         <div className="w-full space-y-4 mb-8 relative z-10">
           <div>
-            <input type="text" placeholder="Email Address" 
+            <input type="text" placeholder="Email Address"
               className="w-full bg-[#0A0F1E]/50 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-[#00D4FF]/50 transition-colors"
               defaultValue={`demo@academiq.edu`}
             />
           </div>
           <div>
-            <input type="password" placeholder="Password" 
+            <input type="password" placeholder="Password"
               className="w-full bg-[#0A0F1E]/50 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-[#00D4FF]/50 transition-colors"
               defaultValue="password"
             />
           </div>
         </div>
-        
-        <button 
+
+        <button
           onClick={() => onLogin(role.toLowerCase())}
           className="w-full btn-gradient py-3 rounded-xl font-bold text-lg flex items-center justify-center gap-2 relative z-10"
         >
           Access Platform <ChevronRight className="w-5 h-5" />
         </button>
       </div>
-      
+
       <div className="absolute bottom-8 text-sm text-gray-500 font-medium tracking-widest uppercase">
         Powered by Predictive AI
       </div>
@@ -284,14 +283,14 @@ const AdminDashboard = ({ students, onNavigate }) => {
     let moderate = risks.filter(r => r.level === "MODERATE").length;
     let safe = risks.filter(r => r.level === "SAFE").length;
     let avg = Math.round(risks.reduce((acc, r) => acc + r.score, 0) / risks.length);
-    
+
     let depts = {};
     students.forEach((s, i) => {
       depts[s.dept] = depts[s.dept] || { name: s.dept, score: 0, count: 0 };
       depts[s.dept].score += risks[i].score;
       depts[s.dept].count += 1;
     });
-    let deptChart = Object.values(depts).map(d => ({ name: d.name, limit: Math.round(d.score/d.count) }));
+    let deptChart = Object.values(depts).map(d => ({ name: d.name, limit: Math.round(d.score / d.count) }));
 
     const dropoutData = [
       { name: 'Aug', prob: 2 }, { name: 'Sep', prob: 4 }, { name: 'Oct', prob: 7 },
@@ -310,7 +309,7 @@ const AdminDashboard = ({ students, onNavigate }) => {
   return (
     <div className="p-6 animate-page max-w-7xl mx-auto">
       <HeaderUnderline title="Institution Overview" />
-      
+
       <div className="flex flex-wrap md:flex-nowrap gap-4 mb-6">
         <Card delay={0.1} className="w-full md:w-1/3 min-w-[200px]">
           <div className="text-gray-400 text-sm font-semibold mb-1 flex items-center gap-2">
@@ -319,15 +318,15 @@ const AdminDashboard = ({ students, onNavigate }) => {
           <div className="text-3xl font-bold text-white mb-2">{TOTAL_STUDENTS}</div>
           <div className="h-10">
             <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={[{v:10},{v:12},{v:11},{v:14},{v:15}]}>
+              <LineChart data={[{ v: 10 }, { v: 12 }, { v: 11 }, { v: 14 }, { v: 15 }]}>
                 <Line type="monotone" dataKey="v" stroke="#00D4FF" strokeWidth={2} dot={false} />
               </LineChart>
             </ResponsiveContainer>
           </div>
         </Card>
-        
-        <Card delay={0.2} className="w-full md:w-1/4 risk-pulse relative overflow-hidden bg-red-500/5 border-red-500/20" 
-              onClick={() => onNavigate('faculty')}>
+
+        <Card delay={0.2} className="w-full md:w-1/4 risk-pulse relative overflow-hidden bg-red-500/5 border-red-500/20"
+          onClick={() => onNavigate('faculty')}>
           <div className="absolute -right-4 -top-4 w-16 h-16 bg-red-500/20 rounded-full blur-xl"></div>
           <div className="text-gray-400 text-sm font-semibold mb-1 flex items-center gap-2">
             <AlertTriangle className="w-4 h-4 text-red-500" /> High Risk Count
@@ -337,7 +336,7 @@ const AdminDashboard = ({ students, onNavigate }) => {
         </Card>
 
         <Card delay={0.3} className="w-full md:w-1/5 bg-amber-500/5 border-amber-500/20"
-              onClick={() => onNavigate('interventions')}>
+          onClick={() => onNavigate('interventions')}>
           <div className="text-gray-400 text-sm font-semibold mb-1 flex items-center gap-2">
             <Activity className="w-4 h-4 text-amber-500" /> Interventions
           </div>
@@ -360,11 +359,11 @@ const AdminDashboard = ({ students, onNavigate }) => {
             <h3 className="text-lg font-semibold mb-4 px-2">Department Risk Profile (Avg Score)</h3>
             <div className="flex-1 animate-chart">
               <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={data.deptChart} margin={{top: 10, right: 10, left: -20, bottom: 0}}>
+                <BarChart data={data.deptChart} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                   <CartesianGrid stroke="#1E2A3A" strokeDasharray="3 3" vertical={false} />
-                  <XAxis dataKey="name" stroke="#4A5568" tick={{fill: '#6B7280', fontSize: 12}} axisLine={false} tickLine={false} />
-                  <YAxis stroke="#4A5568" tick={{fill: '#6B7280', fontSize: 12}} axisLine={false} tickLine={false} />
-                  <RechartsTooltip content={<CustomTooltip />} cursor={{fill: 'rgba(255,255,255,0.05)'}} />
+                  <XAxis dataKey="name" stroke="#4A5568" tick={{ fill: '#6B7280', fontSize: 12 }} axisLine={false} tickLine={false} />
+                  <YAxis stroke="#4A5568" tick={{ fill: '#6B7280', fontSize: 12 }} axisLine={false} tickLine={false} />
+                  <RechartsTooltip content={<CustomTooltip />} cursor={{ fill: 'rgba(255,255,255,0.05)' }} />
                   <Bar dataKey="limit" radius={[4, 4, 0, 0]}>
                     {data.deptChart.map((entry, index) => (
                       <Cell key={`cell-${index}`} fill={entry.limit > 60 ? '#EF4444' : entry.limit > 40 ? '#F59E0B' : '#00D4FF'} />
@@ -379,16 +378,16 @@ const AdminDashboard = ({ students, onNavigate }) => {
             <h3 className="text-lg font-semibold mb-4 px-2">Probable Attrition Rate (6 Months)</h3>
             <div className="flex-1 animate-chart">
               <ResponsiveContainer width="100%" height="100%">
-                <AreaChart data={data.dropoutData} margin={{top: 10, right: 10, left: -20, bottom: 0}}>
+                <AreaChart data={data.dropoutData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                   <defs>
                     <linearGradient id="dropoutGradient" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#EF4444" stopOpacity={0.3}/>
-                      <stop offset="95%" stopColor="#EF4444" stopOpacity={0}/>
+                      <stop offset="5%" stopColor="#EF4444" stopOpacity={0.3} />
+                      <stop offset="95%" stopColor="#EF4444" stopOpacity={0} />
                     </linearGradient>
                   </defs>
                   <CartesianGrid stroke="#1E2A3A" strokeDasharray="3 3" vertical={false} />
-                  <XAxis dataKey="name" stroke="#4A5568" tick={{fill: '#6B7280', fontSize: 12}} axisLine={false} tickLine={false} />
-                  <YAxis stroke="#4A5568" tick={{fill: '#6B7280', fontSize: 12}} axisLine={false} tickLine={false} />
+                  <XAxis dataKey="name" stroke="#4A5568" tick={{ fill: '#6B7280', fontSize: 12 }} axisLine={false} tickLine={false} />
+                  <YAxis stroke="#4A5568" tick={{ fill: '#6B7280', fontSize: 12 }} axisLine={false} tickLine={false} />
                   <RechartsTooltip content={<CustomTooltip />} />
                   <Area type="monotone" dataKey="prob" name="Dropout %" stroke="#EF4444" strokeWidth={2} fillOpacity={1} fill="url(#dropoutGradient)" />
                 </AreaChart>
@@ -422,11 +421,11 @@ const AdminDashboard = ({ students, onNavigate }) => {
                 <span className="text-xs text-gray-400">Total</span>
               </div>
             </div>
-            
+
             <div className="flex justify-center gap-4 mt-2 px-4 pb-2">
               {data.pieData.map((d, i) => (
                 <div key={i} className="flex items-center gap-2">
-                  <div className="w-3 h-3 rounded-full" style={{backgroundColor: d.color}}></div>
+                  <div className="w-3 h-3 rounded-full" style={{ backgroundColor: d.color }}></div>
                   <span className="text-sm text-gray-300">{d.name} <span className="font-bold text-white ml-1">{d.value}</span></span>
                 </div>
               ))}
@@ -436,17 +435,17 @@ const AdminDashboard = ({ students, onNavigate }) => {
           <Card tier={2} delay={0.8} className="flex-1 h-64 overflow-y-auto">
             <h3 className="text-lg font-semibold mb-4 flex items-center gap-2"><Zap className="w-5 h-5 text-amber-400" /> Recent Alerts</h3>
             <div className="space-y-4">
-              <div className="animate-fade-up relative pl-4 border-l-2 border-red-500" style={{animationDelay: '0.9s'}}>
+              <div className="animate-fade-up relative pl-4 border-l-2 border-red-500" style={{ animationDelay: '0.9s' }}>
                 <div className="absolute -left-[5px] top-1 w-2 h-2 rounded-full bg-red-500 shadow-[0_0_8px_rgba(239,68,68,1)]"></div>
                 <p className="text-sm font-medium">Aryan Mehta crossed HIGH RISK threshold</p>
                 <p className="text-xs text-gray-500">2 min ago</p>
               </div>
-              <div className="animate-fade-up relative pl-4 border-l-2 border-red-500" style={{animationDelay: '1.0s'}}>
+              <div className="animate-fade-up relative pl-4 border-l-2 border-red-500" style={{ animationDelay: '1.0s' }}>
                 <div className="absolute -left-[5px] top-1 w-2 h-2 rounded-full bg-red-500 shadow-[0_0_8px_rgba(239,68,68,1)]"></div>
                 <p className="text-sm font-medium">Rehman Ali marked 3rd behavioral incident</p>
                 <p className="text-xs text-gray-500">1 hour ago</p>
               </div>
-              <div className="animate-fade-up relative pl-4 border-l-2 border-[#00D4FF]" style={{animationDelay: '1.1s'}}>
+              <div className="animate-fade-up relative pl-4 border-l-2 border-[#00D4FF]" style={{ animationDelay: '1.1s' }}>
                 <div className="absolute -left-[5px] top-1 w-2 h-2 rounded-full bg-[#00D4FF] shadow-[0_0_8px_rgba(0,212,255,1)]"></div>
                 <p className="text-sm font-medium">Kavya Sharma shows strong recovery trend</p>
                 <p className="text-xs text-gray-500">3 hours ago</p>
@@ -481,7 +480,7 @@ const FacultyDashboard = ({ students, onSelectStudent }) => {
       <div className="flex flex-wrap gap-4 mb-6 items-center w-full pl-4">
         <div className="relative flex-1 min-w-[250px]">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
-          <input 
+          <input
             type="text" placeholder="Search by name or ID..."
             value={search} onChange={e => setSearch(e.target.value)}
             className="w-full bg-[#0A0F1E]/60 border border-white/10 rounded-xl pl-10 pr-4 py-2.5 text-white placeholder-gray-500 focus:outline-none focus:border-[#00D4FF]/50 transition-colors backdrop-blur-md"
@@ -491,12 +490,11 @@ const FacultyDashboard = ({ students, onSelectStudent }) => {
         <div className="flex gap-2">
           {["All", "HIGH", "MODERATE", "SAFE"].map(r => (
             <button key={r} onClick={() => setFilterRisk(r)}
-              className={`px-4 py-2 rounded-xl text-sm font-semibold transition-all ${
-                filterRisk === r ? 'bg-white/10 text-white shadow-sm' : 'text-gray-400 hover:text-white hover:bg-white/5'
-              }`}
+              className={`px-4 py-2 rounded-xl text-sm font-semibold transition-all ${filterRisk === r ? 'bg-white/10 text-white shadow-sm' : 'text-gray-400 hover:text-white hover:bg-white/5'
+                }`}
             >
               <div className="flex items-center gap-2">
-                {r !== "All" && <div className="w-2 h-2 rounded-full" style={{backgroundColor: getLevelColor(r)}}></div>}
+                {r !== "All" && <div className="w-2 h-2 rounded-full" style={{ backgroundColor: getLevelColor(r) }}></div>}
                 {r === "All" ? "All Risks" : r}
               </div>
             </button>
@@ -527,9 +525,9 @@ const FacultyDashboard = ({ students, onSelectStudent }) => {
                     <td className="p-4 text-center text-gray-500">{idx + 1}</td>
                     <td className="p-4">
                       <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm bg-[#0A0F1E]" 
-                             style={{border: `2px solid ${getLevelColor(s.risk.level)}`, color: getLevelColor(s.risk.level)}}>
-                          {s.name.split(' ').map(n=>n[0]).join('')}
+                        <div className="w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm bg-[#0A0F1E]"
+                          style={{ border: `2px solid ${getLevelColor(s.risk.level)}`, color: getLevelColor(s.risk.level) }}>
+                          {s.name.split(' ').map(n => n[0]).join('')}
                         </div>
                         <div>
                           <div className="font-bold">{s.name}</div>
@@ -540,14 +538,14 @@ const FacultyDashboard = ({ students, onSelectStudent }) => {
                     <td className="p-4 text-gray-300">{s.dept}</td>
                     <td className="p-4 text-center text-gray-300">{s.sem}</td>
                     <td className="p-4 text-center">
-                      <div className="inline-block px-3 py-1 rounded-full risk-cell font-bold" 
-                           style={{backgroundColor: `${getLevelColor(s.risk.level)}20`, color: getLevelColor(s.risk.level)}}>
+                      <div className="inline-block px-3 py-1 rounded-full risk-cell font-bold"
+                        style={{ backgroundColor: `${getLevelColor(s.risk.level)}20`, color: getLevelColor(s.risk.level) }}>
                         {s.risk.score}
                       </div>
                     </td>
                     <td className="p-4">
                       <div className={`inline-block px-3 py-1 rounded-full text-xs font-bold border ${isHigh ? 'risk-pulse' : ''}`}
-                           style={{borderColor: getLevelColor(s.risk.level), color: getLevelColor(s.risk.level), backgroundColor: `${getLevelColor(s.risk.level)}10`}}>
+                        style={{ borderColor: getLevelColor(s.risk.level), color: getLevelColor(s.risk.level), backgroundColor: `${getLevelColor(s.risk.level)}10` }}>
                         {s.risk.level}
                       </div>
                     </td>
@@ -558,7 +556,7 @@ const FacultyDashboard = ({ students, onSelectStudent }) => {
                       {s.risk.trend === 'mixed' && <Activity className="w-5 h-5 mx-auto text-amber-500" />}
                     </td>
                     <td className="p-4 text-center align-middle">
-                      <button 
+                      <button
                         onClick={() => onSelectStudent(s)}
                         className="action-btn px-4 py-1.5 btn-gradient rounded-lg text-sm font-bold text-white shadow-md mx-auto inline-block opacity-0 transition-opacity"
                       >
@@ -582,17 +580,17 @@ const StudentDetail = ({ student, onBack, onInterventionReq }) => {
   const risk = useMemo(() => calculateRiskScore(student), [student]);
   const color = getLevelColor(risk.level);
   const isHigh = risk.level === "HIGH";
-  
+
   const [scoreDisplay, setScoreDisplay] = useState(0);
 
   useEffect(() => {
     let timer1 = setTimeout(() => setLoading(false), 1000);
-    
+
     let start = 0;
     const end = risk.score;
     const duration = 1500;
     const incrementTime = Math.max(10, Math.floor(duration / end));
-    
+
     let counter = setInterval(() => {
       start += 1;
       setScoreDisplay(current => {
@@ -621,10 +619,10 @@ const StudentDetail = ({ student, onBack, onInterventionReq }) => {
     { factor: 'Assignments', value: risk.breakdown.assignments, type: 'risk' },
     { factor: 'Behavior', value: risk.breakdown.behavior, type: 'risk' },
     { factor: 'Co-curriculars', value: -risk.breakdown.competitions, type: 'safe' }
-  ].filter(d => d.value !== 0).sort((a,b) => Math.abs(b.value) - Math.abs(a.value));
+  ].filter(d => d.value !== 0).sort((a, b) => Math.abs(b.value) - Math.abs(a.value));
 
-  const attData = student.attendance.map((v, i) => ({ week: `W${i+1}`, val: v }));
-  const marksData = student.marks.map((v, i) => ({ test: `T${i+1}`, val: v }));
+  const attData = student.attendance.map((v, i) => ({ week: `W${i + 1}`, val: v }));
+  const marksData = student.marks.map((v, i) => ({ test: `T${i + 1}`, val: v }));
 
   return (
     <div className="p-6 animate-page max-w-7xl mx-auto pb-20">
@@ -634,10 +632,10 @@ const StudentDetail = ({ student, onBack, onInterventionReq }) => {
 
       <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-8 relative">
         <div className="flex items-center gap-6">
-          <div className="w-24 h-24 rounded-full flex items-center justify-center font-bold text-3xl bg-[#0A0F1E] shadow-2xl relative" 
-               style={{border: `3px solid ${color}`, color: color}}>
-            {student.name.split(' ').map(n=>n[0]).join('')}
-            {isHigh && <div className="absolute inset-0 rounded-full blur-md opacity-50" style={{backgroundColor: color}}></div>}
+          <div className="w-24 h-24 rounded-full flex items-center justify-center font-bold text-3xl bg-[#0A0F1E] shadow-2xl relative"
+            style={{ border: `3px solid ${color}`, color: color }}>
+            {student.name.split(' ').map(n => n[0]).join('')}
+            {isHigh && <div className="absolute inset-0 rounded-full blur-md opacity-50" style={{ backgroundColor: color }}></div>}
           </div>
           <div>
             <h1 className="text-4xl font-bold mb-2 tracking-tight flex items-center">{student.name}</h1>
@@ -655,9 +653,9 @@ const StudentDetail = ({ student, onBack, onInterventionReq }) => {
             <div className="font-semibold">{student.facultyAdvisor}</div>
             <div className="text-xs text-gray-500 mt-1">Prev GPA: {student.prevGPA}</div>
           </div>
-          
+
           <div className={`px-6 py-3 rounded-2xl border-2 shadow-lg flex items-center justify-center font-extrabold text-xl tracking-wider ${isHigh ? 'risk-pulse' : ''}`}
-               style={{borderColor: color, color: color, backgroundColor: `${color}15`, textShadow: `0 0 10px ${color}`}}>
+            style={{ borderColor: color, color: color, backgroundColor: `${color}15`, textShadow: `0 0 10px ${color}` }}>
             {risk.level} RISK
           </div>
         </div>
@@ -672,19 +670,19 @@ const StudentDetail = ({ student, onBack, onInterventionReq }) => {
           <div className="flex flex-col lg:flex-row gap-6 mb-8">
             <Card tier={3} delay={0.1} className="w-full lg:w-1/3 flex flex-col items-center justify-center py-8 relative overflow-hidden">
               {isHigh && <div className="risk-meter-glow-high"></div>}
-              
+
               <div className={`relative w-48 h-48 flex items-center justify-center ${isHigh ? 'risk-vibrate' : ''}`}>
                 <svg width="200" height="200" className="absolute -rotate-90 transform">
                   <circle cx="100" cy="100" r={radius} fill="none" stroke="#1E2A3A" strokeWidth="12" />
-                  <circle 
-                    cx="100" cy="100" r={radius} fill="none" 
+                  <circle
+                    cx="100" cy="100" r={radius} fill="none"
                     stroke={color} strokeWidth="12" strokeLinecap="round"
                     strokeDasharray={circumference} strokeDashoffset={strokeDashoffset}
-                    style={{transition: 'stroke-dashoffset 1.5s ease-out'}}
+                    style={{ transition: 'stroke-dashoffset 1.5s ease-out' }}
                   />
                 </svg>
                 <div className="text-center">
-                  <div className="text-5xl font-black" style={{color: color, textShadow: isHigh ? `0 0 15px ${color}` : 'none'}}>
+                  <div className="text-5xl font-black" style={{ color: color, textShadow: isHigh ? `0 0 15px ${color}` : 'none' }}>
                     {scoreDisplay}
                   </div>
                   <div className="text-sm text-gray-400 font-bold tracking-widest uppercase mt-1">Score</div>
@@ -692,7 +690,7 @@ const StudentDetail = ({ student, onBack, onInterventionReq }) => {
               </div>
 
               <div className="mt-6 text-center">
-                <div className="text-xl font-bold mb-2" style={{color: color}}>{risk.level}</div>
+                <div className="text-xl font-bold mb-2" style={{ color: color }}>{risk.level}</div>
                 <div className="text-sm text-gray-400 px-4">
                   Multi-dimensional analysis based on attendance, academics, behavior, and engagement.
                 </div>
@@ -706,9 +704,9 @@ const StudentDetail = ({ student, onBack, onInterventionReq }) => {
                   <ResponsiveContainer width="100%" height="100%">
                     <LineChart data={attData}>
                       <CartesianGrid stroke="#1E2A3A" strokeDasharray="3 3" vertical={false} />
-                      <XAxis dataKey="week" stroke="#4A5568" tick={{fill: '#6B7280', fontSize: 10}} axisLine={false} tickLine={false} />
+                      <XAxis dataKey="week" stroke="#4A5568" tick={{ fill: '#6B7280', fontSize: 10 }} axisLine={false} tickLine={false} />
                       <RechartsTooltip content={<CustomTooltip />} />
-                      <Line type="monotone" dataKey="val" stroke="#00D4FF" strokeWidth={3} dot={{r:4, fill: '#00D4FF', strokeWidth: 0}} activeDot={{r: 6}} />
+                      <Line type="monotone" dataKey="val" stroke="#00D4FF" strokeWidth={3} dot={{ r: 4, fill: '#00D4FF', strokeWidth: 0 }} activeDot={{ r: 6 }} />
                     </LineChart>
                   </ResponsiveContainer>
                 </div>
@@ -720,9 +718,9 @@ const StudentDetail = ({ student, onBack, onInterventionReq }) => {
                   <ResponsiveContainer width="100%" height="100%">
                     <LineChart data={marksData}>
                       <CartesianGrid stroke="#1E2A3A" strokeDasharray="3 3" vertical={false} />
-                      <XAxis dataKey="test" stroke="#4A5568" tick={{fill: '#6B7280', fontSize: 10}} axisLine={false} tickLine={false} />
+                      <XAxis dataKey="test" stroke="#4A5568" tick={{ fill: '#6B7280', fontSize: 10 }} axisLine={false} tickLine={false} />
                       <RechartsTooltip content={<CustomTooltip />} />
-                      <Line type="monotone" dataKey="val" stroke={risk.breakdown.marks > 10 ? '#EF4444' : '#00D4FF'} strokeWidth={3} dot={{r:4}} />
+                      <Line type="monotone" dataKey="val" stroke={risk.breakdown.marks > 10 ? '#EF4444' : '#00D4FF'} strokeWidth={3} dot={{ r: 4 }} />
                     </LineChart>
                   </ResponsiveContainer>
                 </div>
@@ -731,7 +729,7 @@ const StudentDetail = ({ student, onBack, onInterventionReq }) => {
               <Card tier={2} delay={0.4} className="h-40 flex flex-col justify-center text-center">
                 <h3 className="text-sm font-semibold text-gray-400 mb-2">LMS Engagement</h3>
                 <div className="text-3xl font-bold text-white">
-                  {Math.round((student.lmsLogins[3]+student.lmsLogins[4])/2)} 
+                  {Math.round((student.lmsLogins[3] + student.lmsLogins[4]) / 2)}
                   <span className="text-sm text-gray-500 font-normal ml-2">logins/week</span>
                 </div>
               </Card>
@@ -758,11 +756,11 @@ const StudentDetail = ({ student, onBack, onInterventionReq }) => {
             <div className="flex flex-col lg:flex-row gap-8">
               <div className="w-full lg:w-1/2 h-64 animate-chart">
                 <ResponsiveContainer width="100%" height="100%">
-                  <BarChart data={shapData} layout="vertical" margin={{top: 0, right: 30, left: 10, bottom: 0}}>
+                  <BarChart data={shapData} layout="vertical" margin={{ top: 0, right: 30, left: 10, bottom: 0 }}>
                     <CartesianGrid stroke="#1E2A3A" strokeDasharray="3 3" horizontal={true} vertical={false} />
-                    <XAxis type="number" stroke="#4A5568" tick={{fill: '#6B7280', fontSize: 10}} axisLine={false} tickLine={false} />
-                    <YAxis dataKey="factor" type="category" stroke="#4A5568" width={120} tick={{fill: '#D1D5DB', fontSize: 11}} axisLine={false} tickLine={false} />
-                    <RechartsTooltip content={<CustomTooltip />} cursor={{fill: 'rgba(255,255,255,0.05)'}} />
+                    <XAxis type="number" stroke="#4A5568" tick={{ fill: '#6B7280', fontSize: 10 }} axisLine={false} tickLine={false} />
+                    <YAxis dataKey="factor" type="category" stroke="#4A5568" width={120} tick={{ fill: '#D1D5DB', fontSize: 11 }} axisLine={false} tickLine={false} />
+                    <RechartsTooltip content={<CustomTooltip />} cursor={{ fill: 'rgba(255,255,255,0.05)' }} />
                     <Bar dataKey="value" radius={[0, 4, 4, 0]} barSize={20}>
                       {shapData.map((entry, index) => (
                         <Cell key={`cell-${index}`} fill={entry.type === 'risk' ? '#EF4444' : '#00D4FF'} />
@@ -773,7 +771,7 @@ const StudentDetail = ({ student, onBack, onInterventionReq }) => {
               </div>
               <div className="w-full lg:w-1/2 flex flex-col justify-center space-y-4 pr-4">
                 {shapData.map((d, i) => (
-                  <div key={i} className="flex items-start gap-3 animate-fade-up" style={{animationDelay: `${0.7 + i*0.1}s`}}>
+                  <div key={i} className="flex items-start gap-3 animate-fade-up" style={{ animationDelay: `${0.7 + i * 0.1}s` }}>
                     <div className="mt-0.5">
                       {d.type === 'risk' ? <TrendingDown className="w-5 h-5 text-red-500" /> : <TrendingUp className="w-5 h-5 text-[#00D4FF]" />}
                     </div>
@@ -909,21 +907,21 @@ const InterventionsPanel = ({ students }) => {
                 <tr key={inv.id} className={`border-b border-white/5 transition-all duration-500 hover:bg-white/5 ${inv.status === "COMPLETE" ? "opacity-50" : ""}`}>
                   <td className="p-4">
                     <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-full flex items-center justify-center font-bold text-xs bg-[#0A0F1E] border" 
-                           style={{borderColor: color, color: color}}>
-                        {s.name.split(' ').map(n=>n[0]).join('')}
+                      <div className="w-8 h-8 rounded-full flex items-center justify-center font-bold text-xs bg-[#0A0F1E] border"
+                        style={{ borderColor: color, color: color }}>
+                        {s.name.split(' ').map(n => n[0]).join('')}
                       </div>
                       <div className="font-bold text-white">{s.name}</div>
                     </div>
                   </td>
                   <td className="p-4">
-                    <div className="text-xs font-bold" style={{color: color}}>{risk.level}</div>
+                    <div className="text-xs font-bold" style={{ color: color }}>{risk.level}</div>
                   </td>
                   <td className="p-4 font-medium">{inv.type}</td>
                   <td className="p-4 text-gray-300">{inv.assigned}</td>
                   <td className="p-4 text-gray-300">{inv.date}</td>
                   <td className="p-4 text-center">
-                    <span className={`px-3 py-1 rounded-full text-xs font-bold border ${inv.status==="PENDING" ? "text-amber-500 border-amber-500/20 bg-amber-500/10" : inv.status==="ACTIVE" ? "text-[#00D4FF] border-[#00D4FF]/20 bg-[#00D4FF]/10" : "text-green-500 border-green-500/20 bg-green-500/10"}`}>
+                    <span className={`px-3 py-1 rounded-full text-xs font-bold border ${inv.status === "PENDING" ? "text-amber-500 border-amber-500/20 bg-amber-500/10" : inv.status === "ACTIVE" ? "text-[#00D4FF] border-[#00D4FF]/20 bg-[#00D4FF]/10" : "text-green-500 border-green-500/20 bg-green-500/10"}`}>
                       {inv.status}
                     </span>
                   </td>
@@ -952,7 +950,7 @@ const App = () => {
   const [currentRole, setCurrentRole] = useState(null);
   const [selectedStudent, setSelectedStudent] = useState(null);
   const [showInterventionModal, setShowInterventionModal] = useState(false);
-  
+
   const [students] = useState(() => generateStudents());
 
   const handleLogin = (role) => {
@@ -978,7 +976,7 @@ const App = () => {
       <Card tier={3} className="w-full max-w-lg p-8 relative border-amber-500/30">
         <h3 className="text-2xl font-bold mb-4 flex items-center gap-2"><Zap className="w-6 h-6 text-amber-500" /> Trigger Action</h3>
         <p className="text-gray-400 mb-6">Select automated intervention for {selectedStudent?.name}</p>
-        
+
         <div className="space-y-3 mb-8">
           <button className="w-full text-left p-4 rounded-xl border border-white/10 hover:border-amber-500 flex justify-between items-center bg-white/5 transition-colors">
             <div>
@@ -995,7 +993,7 @@ const App = () => {
             <BookOpen className="text-[#00D4FF] w-5 h-5" />
           </button>
         </div>
-        
+
         <div className="flex gap-4">
           <button onClick={() => setShowInterventionModal(false)} className="flex-1 py-3 rounded-xl border border-white/20 text-white font-bold hover:bg-white/5 transition-colors">
             Cancel
@@ -1025,22 +1023,22 @@ const App = () => {
               </div>
               <span className="text-xl font-extrabold text-gradient tracking-tight">AcademiQ</span>
             </div>
-            
+
             <div className="flex flex-1 justify-center max-w-lg">
               <div className="flex gap-8 px-4 w-full">
-                <button 
+                <button
                   onClick={() => handleNavigate("admin")}
                   className={`py-5 font-semibold text-sm transition-colors nav-tab ${currentPage === "admin" ? "text-white active" : "text-gray-400 hover:text-white"}`}
                 >
                   <LayoutDashboard className="w-4 h-4 inline-block mr-1.5 -mt-0.5" /> Dashboard
                 </button>
-                <button 
+                <button
                   onClick={() => handleNavigate("faculty")}
                   className={`py-5 font-semibold text-sm transition-colors nav-tab ${currentPage === "faculty" || currentPage === "student" ? "text-white active" : "text-gray-400 hover:text-white"}`}
                 >
                   <Users className="w-4 h-4 inline-block mr-1.5 -mt-0.5" /> Students
                 </button>
-                <button 
+                <button
                   onClick={() => handleNavigate("interventions")}
                   className={`py-5 font-semibold text-sm transition-colors nav-tab ${currentPage === "interventions" ? "text-white active" : "text-gray-400 hover:text-white"}`}
                 >
@@ -1077,104 +1075,3 @@ const App = () => {
 
 export default App;
 
-// Inside your App.jsx
-import { useState } from 'react';
-
-function App() {
-  const [loading, setLoading] = useState(false);
-
-  // THIS IS THE REACT CODE TO CONNECT TO YOUR BACKEND
-  const handleSyncData = async (studentDataArray) => {
-    setLoading(true);
-    try {
-      const response = await fetch("http://127.0.0.1:8000/predict_and_sync", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(studentDataArray),
-      });
-
-      const result = await response.json();
-      
-      if (response.ok) {
-        alert(`Success! Synced ${result.records_synced} students to Supabase.`);
-      } else {
-        alert("Error: " + result.detail);
-      }
-    } catch (error) {
-      console.error("Connection failed:", error);
-      alert("Could not connect to the Backend. Is uvicorn running?");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  return (
-    <div className="App">
-      <h1>Continuum Dashboard</h1>
-      <button 
-        onClick={() => handleSyncData([{ /* your test student object */ }])}
-        disabled={loading}
-      >
-        {loading ? "Syncing..." : "Sync to Supabase"}
-      </button>
-    </div>
-  );
-}
-
-import { useState } from 'react';
-
-function App() {
-  const [loading, setLoading] = useState(false);
-
-  // This function connects your Website to your Backend
-  const handleSync = async () => {
-    setLoading(true);
-    try {
-      // Point this to your FastAPI address
-      const response = await fetch("http://127.0.0.1:8000/predict_and_sync", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify([{
-          "student_id": "STU_001",
-          "student_name": "Snigdha",
-          "Age at enrollment": 20,
-          "Gender": 0,
-          "Tuition fees up to date": 1,
-          "Scholarship holder": 1,
-          "Debtor": 0,
-          "Curricular units 1st sem (enrolled)": 5,
-          "Curricular units 1st sem (evaluations)": 5,
-          "Curricular units 1st sem (approved)": 5,
-          "Previous qualification": 1,
-          "Application mode": 1,
-          "attendance": 95.0,
-          "internal_1": 18.0,
-          "internal_2": 19.0
-        }])
-      });
-
-      if (response.ok) {
-        alert("Success! Data is now in Supabase.");
-      }
-    } catch (err) {
-      alert("Backend not found! Is uvicorn running?");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  return (
-    <div className="p-10">
-      <h1 className="text-2xl font-bold">Continuum Dashboard</h1>
-      <button 
-        className="bg-blue-500 text-white p-2 rounded mt-4"
-        onClick={handleSync}
-        disabled={loading}
-      >
-        {loading ? "Processing..." : "Run AI Analysis"}
-      </button>
-    </div>
-  );
-}
