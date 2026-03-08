@@ -354,6 +354,51 @@ const LoginPage = ({ onLogin }) => {
 };
 
 const AdminDashboard = ({ students, onNavigate, currentStudentId, animatedStats, adminLoading, can, role }) => {
+    const [loading, setLoading] = useState(false);
+
+    const handleSync = async () => {
+        setLoading(true);
+        try {
+            const formattedData = students.map(s => {
+                // Approximate mapping to required AI columns
+                return {
+                    "student_id": s.id,
+                    "student_name": s.name,
+                    "Age at enrollment": 18 + (s.sem / 2),
+                    "Gender": s.socioEconomic?.genderRiskFlag ? 1 : 0,
+                    "Tuition fees up to date": s.financial?.feeStatus === "Paid" ? 1 : 0,
+                    "Scholarship holder": s.financial?.scholarshipEligible ? 1 : 0,
+                    "Debtor": s.financial?.feeStatus === "Pending" ? 1 : 0,
+                    "Curricular units 1st sem (enrolled)": 6,
+                    "Curricular units 1st sem (evaluations)": 6,
+                    "Curricular units 1st sem (approved)": s.marks[4] > 50 ? 6 : 4,
+                    "Previous qualification": 1,
+                    "Application mode": 1,
+                    "attendance": s.attendance[4],
+                    "internal_1": s.marks[3] / 5, // Normalize 100-scale to 20-scale
+                    "internal_2": s.marks[4] / 5
+                };
+            });
+
+            const response = await fetch("http://127.0.0.1:8000/predict_and_sync", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(formattedData)
+            });
+
+            if (response.ok) {
+                const result = await response.json();
+                alert(`Success! Checked AI predictions and synced ${result.records_synced || formattedData.length} active students to Supabase.`);
+            } else {
+                alert("Database Sync Failed. Check the backend connection.");
+            }
+        } catch (err) {
+            alert("Backend Connection Error. Please ensure your Python FastAPI server (uvicorn) is running.");
+        } finally {
+            setLoading(false);
+        }
+    };
+
     const data = useMemo(() => {
         let risks = students.map(s => calculateRiskScore(s));
         let high = risks.filter(r => r.level === "HIGH").length;
@@ -394,7 +439,18 @@ const AdminDashboard = ({ students, onNavigate, currentStudentId, animatedStats,
         <div className="p-6 animate-page max-w-7xl mx-auto">
             {can('canViewFullAnalytics') ? (
                 <>
-                    <HeaderUnderline title="Institution Overview" />
+                    <div className="flex justify-between items-center mb-6">
+                        <h2 className="text-2xl font-bold tracking-wide">Institution Overview</h2>
+                        <button
+                            onClick={handleSync}
+                            disabled={loading}
+                            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition-all ${loading ? 'bg-gray-600 text-gray-400 cursor-not-allowed' : 'bg-gradient-to-r from-[#4DA3FF] to-[#8CC7FF] text-white hover:shadow-lg hover:-translate-y-0.5'}`}
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 2v6h-6"></path><path d="M3 12a9 9 0 0 1 15-6.7L21 8"></path><path d="M3 22v-6h6"></path><path d="M21 12a9 9 0 0 1-15 6.7L3 16"></path></svg>
+                            {loading ? "Syncing AI Data..." : "Refresh App & Sync Backend"}
+                        </button>
+                    </div>
+                    <div className="header-underline mb-6 -mt-4"></div>
 
                     <div className="flex flex-wrap md:flex-nowrap gap-4 mb-6">
                         <Card delay={0.1} className="w-full md:w-1/3 min-w-[200px]" style={{
