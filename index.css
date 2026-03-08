@@ -1,0 +1,353 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+@import "tailwindcss";
+
+@layer base {
+  body {
+    background-color: #0A0F1E;
+    color: white;
+    font-family: 'DM Sans', sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: 'Syne', sans-serif;
+  }
+}
+
+/* Background grid and noise overlay */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 20px 20px;
+  pointer-events: none;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -3;
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+}
+
+/* Soft ambient radial glow */
+.ambient-glow-topLeft {
+  position: fixed;
+  top: -20%;
+  left: -10%;
+  width: 50vw;
+  height: 50vw;
+  background: radial-gradient(ellipse, rgba(0, 212, 255, 0.08), transparent 60%);
+  border-radius: 50%;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.ambient-glow-topRight {
+  position: fixed;
+  top: -10%;
+  right: -20%;
+  width: 60vw;
+  height: 60vw;
+  background: radial-gradient(ellipse, rgba(123, 110, 246, 0.06), transparent 60%);
+  border-radius: 50%;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* App Name Gradient Text */
+.text-gradient {
+  background: linear-gradient(135deg, #00D4FF, #7B6EF6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* CARD TIER SYSTEMS */
+.card-tier-1 {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  border-radius: 16px;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.card-tier-2 {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(20px);
+  border-radius: 20px;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.card-tier-3 {
+  background: rgba(14, 20, 40, 0.8);
+  border: 1px solid rgba(0, 212, 255, 0.15);
+  backdrop-filter: blur(30px);
+  border-radius: 24px;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Hover Lift */
+.hover-lift:hover {
+  transform: translateY(-4px) rotate(0.5deg);
+  box-shadow: 0 20px 60px rgba(0, 212, 255, 0.12);
+}
+
+/* Animations */
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-up {
+  opacity: 0;
+  animation: fadeSlideUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes chartReveal {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-chart {
+  opacity: 0;
+  animation: chartReveal 0.8s ease forwards;
+}
+
+@keyframes pageEnter {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-page {
+  animation: pageEnter 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes riskPulse {
+
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4);
+  }
+
+  50% {
+    box-shadow: 0 0 0 8px rgba(239, 68, 68, 0);
+  }
+}
+
+.risk-pulse {
+  animation: riskPulse 2s infinite;
+}
+
+@keyframes riskVibrate {
+
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+
+  20% {
+    transform: translate(-1px, 1px);
+  }
+
+  40% {
+    transform: translate(1px, -1px);
+  }
+
+  60% {
+    transform: translate(-1px, 0px);
+  }
+
+  80% {
+    transform: translate(1px, 1px);
+  }
+}
+
+.risk-vibrate {
+  animation: riskVibrate 0.3s infinite;
+}
+
+@keyframes expandLine {
+  from {
+    width: 0%;
+    opacity: 0;
+  }
+
+  to {
+    width: 60%;
+    opacity: 1;
+  }
+}
+
+.header-underline::after {
+  content: "";
+  display: block;
+  height: 2px;
+  background: linear-gradient(90deg, #00D4FF, transparent);
+  margin-top: 8px;
+  border-radius: 2px;
+  width: 0;
+  opacity: 0;
+  animation: expandLine 1.2s ease forwards;
+}
+
+/* Smart Table Hover */
+.smart-table-row {
+  transition: all 0.25s ease;
+  border-left: 0px solid transparent;
+}
+
+.smart-table-row:hover {
+  background: rgba(0, 212, 255, 0.04);
+  transform: translateX(4px);
+}
+
+.smart-table-row.risk-safe:hover {
+  border-left: 3px solid #00D4FF;
+}
+
+.smart-table-row.risk-moderate:hover {
+  border-left: 3px solid #F59E0B;
+}
+
+.smart-table-row.risk-high:hover {
+  border-left: 3px solid #EF4444;
+}
+
+.smart-table-row .action-btn {
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.smart-table-row:hover .action-btn {
+  opacity: 1;
+}
+
+.smart-table-row.risk-safe:hover .risk-cell {
+  text-shadow: 0 0 10px rgba(0, 212, 255, 0.8);
+}
+
+.smart-table-row.risk-moderate:hover .risk-cell {
+  text-shadow: 0 0 10px rgba(245, 158, 11, 0.8);
+}
+
+.smart-table-row.risk-high:hover .risk-cell {
+  text-shadow: 0 0 10px rgba(239, 68, 68, 0.8);
+}
+
+/* Buttons */
+.btn-gradient {
+  background: linear-gradient(135deg, #00D4FF, #7B6EF6);
+  background-size: 200% auto;
+  transition: all 0.3s ease;
+}
+
+.btn-gradient:hover {
+  background-position: right center;
+  transform: scale(1.03);
+  box-shadow: 0 8px 25px rgba(0, 212, 255, 0.3);
+}
+
+/* Shimmer Loading */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.shimmer-loading {
+  background: linear-gradient(90deg,
+      rgba(255, 255, 255, 0.03) 25%,
+      rgba(255, 255, 255, 0.08) 50%,
+      rgba(255, 255, 255, 0.03) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* Nav Tab Underline */
+.nav-tab {
+  position: relative;
+}
+
+.nav-tab.active::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, #00D4FF, #7B6EF6);
+  border-radius: 2px 2px 0 0;
+  animation: expandLine 0.3s ease forwards;
+}
+
+/* High Risk Meter Radial Glow */
+.risk-meter-glow-high {
+  position: absolute;
+  inset: -20px;
+  background: radial-gradient(circle, rgba(239, 68, 68, 0.2), transparent 70%);
+  filter: blur(30px);
+  z-index: -1;
+  border-radius: 50%;
+  animation: riskPulse 2s infinite;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
