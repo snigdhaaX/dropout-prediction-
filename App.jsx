@@ -1076,3 +1076,105 @@ const App = () => {
 };
 
 export default App;
+
+// Inside your App.jsx
+import { useState } from 'react';
+
+function App() {
+  const [loading, setLoading] = useState(false);
+
+  // THIS IS THE REACT CODE TO CONNECT TO YOUR BACKEND
+  const handleSyncData = async (studentDataArray) => {
+    setLoading(true);
+    try {
+      const response = await fetch("http://127.0.0.1:8000/predict_and_sync", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(studentDataArray),
+      });
+
+      const result = await response.json();
+      
+      if (response.ok) {
+        alert(`Success! Synced ${result.records_synced} students to Supabase.`);
+      } else {
+        alert("Error: " + result.detail);
+      }
+    } catch (error) {
+      console.error("Connection failed:", error);
+      alert("Could not connect to the Backend. Is uvicorn running?");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="App">
+      <h1>Continuum Dashboard</h1>
+      <button 
+        onClick={() => handleSyncData([{ /* your test student object */ }])}
+        disabled={loading}
+      >
+        {loading ? "Syncing..." : "Sync to Supabase"}
+      </button>
+    </div>
+  );
+}
+
+import { useState } from 'react';
+
+function App() {
+  const [loading, setLoading] = useState(false);
+
+  // This function connects your Website to your Backend
+  const handleSync = async () => {
+    setLoading(true);
+    try {
+      // Point this to your FastAPI address
+      const response = await fetch("http://127.0.0.1:8000/predict_and_sync", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify([{
+          "student_id": "STU_001",
+          "student_name": "Snigdha",
+          "Age at enrollment": 20,
+          "Gender": 0,
+          "Tuition fees up to date": 1,
+          "Scholarship holder": 1,
+          "Debtor": 0,
+          "Curricular units 1st sem (enrolled)": 5,
+          "Curricular units 1st sem (evaluations)": 5,
+          "Curricular units 1st sem (approved)": 5,
+          "Previous qualification": 1,
+          "Application mode": 1,
+          "attendance": 95.0,
+          "internal_1": 18.0,
+          "internal_2": 19.0
+        }])
+      });
+
+      if (response.ok) {
+        alert("Success! Data is now in Supabase.");
+      }
+    } catch (err) {
+      alert("Backend not found! Is uvicorn running?");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="p-10">
+      <h1 className="text-2xl font-bold">Continuum Dashboard</h1>
+      <button 
+        className="bg-blue-500 text-white p-2 rounded mt-4"
+        onClick={handleSync}
+        disabled={loading}
+      >
+        {loading ? "Processing..." : "Run AI Analysis"}
+      </button>
+    </div>
+  );
+}
