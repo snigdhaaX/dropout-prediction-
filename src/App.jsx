@@ -480,9 +480,7 @@ const AdminDashboard = ({ students, onNavigate, currentStudentId, animatedStats,
     const [loading, setLoading] = useState(false);
 
     const handleSync = async () => {
-    // 1. Start the loading state from your friend's UI
-    setAdminLoading(true); 
-    
+        setLoading(true);
     try {
         // 2. Fix the 404 by pointing to your active backend port
         const baseUrl = import.meta.env.VITE_API_URL || "http://127.0.0.1:8000";
