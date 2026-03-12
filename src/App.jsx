@@ -249,7 +249,7 @@ const Card = ({ children, tier = 1, className = "", delay = 0, onClick, title })
 const CustomTooltip = ({ active, payload, label }) => {
     if (active && payload && payload.length) {
         return (
-            <div className="bg-white dark:bg-[#0B0B0C] bg-opacity-90 border border-gray-200 dark:border-white/10 backdrop-blur-md rounded-lg p-3 text-gray-900 dark:text-white shadow-xl">
+            <div className="bg-white dark:bg-white dark:bg-[#0B0B0C] border border-gray-200 dark:border-white/10 backdrop-blur-md rounded-lg p-3 text-gray-900 dark:text-white shadow-xl">
                 <p className="font-semibold mb-1">{label}</p>
                 {payload.map((entry, index) => (
                     <div key={`item-${index}`} className="flex items-center gap-2 text-sm">
@@ -318,7 +318,7 @@ const ResetPassword = ({ onBack }) => {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         placeholder="Email Address"
-                        className="w-full bg-gray-100 dark:bg-[#0B0B0C]/50 border border-gray-300 dark:border-white/10 text-gray-900 dark:text-white p-3 rounded-xl mb-4 focus:ring-2 mt-4 transition-colors focus:border-[#4DA3FF]/30 outline-none"
+                        className="w-full bg-[#0B0B0C]/50 border border-gray-300 dark:border-white/10 text-gray-900 dark:text-white p-3 rounded-xl mb-4 focus:ring-2 mt-4 transition-colors focus:border-[#4DA3FF]/30 outline-none"
                         required
                     />
                     <div className="relative mb-4">
@@ -330,13 +330,13 @@ const ResetPassword = ({ onBack }) => {
                                 validatePassword(e.target.value);
                             }}
                             placeholder="New Password"
-                            className="w-full bg-gray-100 dark:bg-[#0B0B0C]/50 border border-gray-300 dark:border-white/10 text-gray-900 dark:text-white p-3 rounded-xl pr-10 focus:ring-2 transition-colors focus:border-[#4DA3FF]/30 outline-none"
+                            className="w-full bg-[#0B0B0C]/50 border border-gray-300 dark:border-white/10 text-gray-900 dark:text-white p-3 rounded-xl pr-10 focus:ring-2 transition-colors focus:border-[#4DA3FF]/30 outline-none"
                             required
                         />
                         <button
                             type="button"
                             onClick={() => setShowPassword(!showPassword)}
-                            className="absolute right-3 top-3.5 text-slate-400 hover:text-white transition"
+                            className="absolute right-3 top-3.5 text-slate-400 hover:text-gray-900 dark:text-white transition"
                         >
                             {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                         </button>
@@ -347,7 +347,7 @@ const ResetPassword = ({ onBack }) => {
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
                         placeholder="Confirm New Password"
-                        className="w-full bg-gray-100 dark:bg-[#0B0B0C]/50 border border-gray-300 dark:border-white/10 text-gray-900 dark:text-white p-3 rounded-xl mb-6 transition-colors focus:border-[#4DA3FF]/30 outline-none"
+                        className="w-full bg-[#0B0B0C]/50 border border-gray-300 dark:border-white/10 text-gray-900 dark:text-white p-3 rounded-xl mb-6 transition-colors focus:border-[#4DA3FF]/30 outline-none"
                         required
                     />
                     <button
@@ -405,17 +405,17 @@ const LoginPage = ({ onLogin, onForgotPassword }) => {
             <div className="card-tier-3 p-10 w-full max-w-md animate-fade-up z-10 flex flex-col items-center shadow-2xl relative">
                 <div className="absolute -top-12 w-24 h-24 bg-[#4DA3FF]/[0.18] rounded-full blur-3xl"></div>
                 <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#4DA3FF] to-[#8CC7FF] flex items-center justify-center mb-4 relative z-10 block">
-                    <Brain className="w-8 h-8 text-white" />
+                    <Brain className="w-8 h-8 text-gray-900 dark:text-white" />
                 </div>
                 <h1 className="text-4xl font-extrabold mb-2 text-gradient tracking-tight relative z-10">Hackspace</h1>
-                <p className="text-gray-400 mb-8 font-medium relative z-10">Academic Intelligence Platform</p>
+                <p className="text-gray-600 dark:text-gray-400 mb-8 font-medium relative z-10">Academic Intelligence Platform</p>
 
                 <div className="flex w-full bg-white/5 p-1 rounded-xl mb-6 relative z-10">
                     {["Admin", "Faculty", "Parent", "Student"].map(r => (
                         <button
                             key={r}
                             onClick={() => setRole(r)}
-                            className={`flex-1 py-2 text-sm font-semibold rounded-lg transition-all duration-300 ${role === r ? "bg-gradient-to-r from-[#4DA3FF] to-[#8CC7FF] text-white shadow-lg" : "text-gray-400 hover:text-gray-900 dark:hover:text-white"
+                            className={`flex-1 py-2 text-sm font-semibold rounded-lg transition-all duration-300 ${role === r ? "bg-gradient-to-r from-[#4DA3FF] to-[#8CC7FF] text-gray-900 dark:text-white shadow-lg" : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-900 dark:text-white"
                                 }`}
                         >
                             {r}
@@ -426,20 +426,20 @@ const LoginPage = ({ onLogin, onForgotPassword }) => {
                 <div className="w-full space-y-4 mb-8 relative z-10">
                     <div>
                         <input type="text" placeholder="Email Address"
-                            className="w-full bg-[#0B0B0C]/50 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-[#4DA3FF]/30 transition-colors"
+                            className="w-full bg-[#0B0B0C]/50 border border-white/10 rounded-xl px-4 py-3 text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:border-[#4DA3FF]/30 transition-colors"
                             defaultValue={`demo@academiq.edu`}
                         />
                     </div>
                     <div className="relative">
                         <input type={showPassword ? "text" : "password"} placeholder="Password"
-                            className="w-full bg-[#0B0B0C]/50 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-gray-500 flex items-center pr-10 focus:outline-none focus:border-[#4DA3FF]/30 transition-colors"
+                            className="w-full bg-[#0B0B0C]/50 border border-white/10 rounded-xl px-4 py-3 text-gray-900 dark:text-white placeholder-gray-500 flex items-center pr-10 focus:outline-none focus:border-[#4DA3FF]/30 transition-colors"
                             value={password}
                             onChange={(e) => { setPassword(e.target.value); validatePassword(e.target.value); }}
                         />
                         <button
                             type="button"
                             onClick={() => setShowPassword(!showPassword)}
-                            className="absolute right-3 top-3.5 text-slate-400 hover:text-white transition"
+                            className="absolute right-3 top-3.5 text-slate-400 hover:text-gray-900 dark:text-white transition"
                         >
                             {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                         </button>
@@ -567,7 +567,7 @@ const AdminDashboard = ({ students, onNavigate, currentStudentId, animatedStats,
                         <button
                             onClick={handleSync}
                             disabled={loading}
-                            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition-all ${loading ? 'bg-gray-600 text-gray-400 cursor-not-allowed' : 'bg-gradient-to-r from-[#4DA3FF] to-[#8CC7FF] text-white hover:shadow-lg hover:-translate-y-0.5'}`}
+                            className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition-all ${loading ? 'bg-gray-600 text-gray-600 dark:text-gray-400 cursor-not-allowed' : 'bg-gradient-to-r from-[#4DA3FF] to-[#8CC7FF] text-gray-900 dark:text-white hover:shadow-lg hover:-translate-y-0.5'}`}
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 2v6h-6"></path><path d="M3 12a9 9 0 0 1 15-6.7L21 8"></path><path d="M3 22v-6h6"></path><path d="M21 12a9 9 0 0 1-15 6.7L3 16"></path></svg>
                             {loading ? "Syncing AI Data..." : "Refresh App & Sync Backend"}
@@ -583,7 +583,7 @@ const AdminDashboard = ({ students, onNavigate, currentStudentId, animatedStats,
                             animationFillMode: 'both',
                             animationDelay: '0s'
                         }}>
-                            <div className="text-gray-400 text-sm font-semibold mb-1 flex items-center gap-2">
+                            <div className="text-gray-600 dark:text-gray-400 text-sm font-semibold mb-1 flex items-center gap-2">
                                 <Users className="w-4 h-4 text-[#4DA3FF]" /> Total Students
                             </div>
                             <div className="text-3xl font-bold text-gray-900 dark:text-white mb-2">{TOTAL_STUDENTS}</div>
@@ -598,7 +598,7 @@ const AdminDashboard = ({ students, onNavigate, currentStudentId, animatedStats,
                         }}
                             onClick={() => onNavigate('faculty')}>
                             <div className="absolute -right-4 -top-4 w-16 h-16 bg-[#EF4444]/20 rounded-full blur-xl"></div>
-                            <div className="text-gray-400 text-sm font-semibold mb-1 flex items-center gap-2">
+                            <div className="text-gray-600 dark:text-gray-400 text-sm font-semibold mb-1 flex items-center gap-2">
                                 <AlertTriangle className="w-4 h-4 text-[#EF4444]" /> High Risk Count
                             </div>
                             <div className="text-4xl font-bold text-[#EF4444]">{data.high}</div>
@@ -613,7 +613,7 @@ const AdminDashboard = ({ students, onNavigate, currentStudentId, animatedStats,
                             animationDelay: '0.12s'
                         }}
                             onClick={() => onNavigate('interventions')}>
-                            <div className="text-gray-400 text-sm font-semibold mb-1 flex items-center gap-2">
+                            <div className="text-gray-600 dark:text-gray-400 text-sm font-semibold mb-1 flex items-center gap-2">
                                 <Activity className="w-4 h-4 text-[#4DA3FF]" /> Interventions
                             </div>
                             <div className="text-3xl font-bold text-gray-900 dark:text-white mb-2">8</div>
@@ -627,7 +627,7 @@ const AdminDashboard = ({ students, onNavigate, currentStudentId, animatedStats,
                             animationFillMode: 'both',
                             animationDelay: '0.18s'
                         }}>
-                            <div className="text-gray-400 text-sm font-semibold mb-1 flex items-center gap-2">
+                            <div className="text-gray-600 dark:text-gray-400 text-sm font-semibold mb-1 flex items-center gap-2">
                                 <Brain className="w-4 h-4 text-[#8CC7FF]" /> Avg Risk Score
                             </div>
                             <div className="text-3xl font-bold text-gray-900 dark:text-white mb-2">{data.avg}</div>
@@ -646,9 +646,9 @@ const AdminDashboard = ({ students, onNavigate, currentStudentId, animatedStats,
                             <ResponsiveContainer width="100%" height={220}>
                                 <LineChart data={data.monthlyAtt} margin={{ top: 10, right: 30, left: 30, bottom: 5 }}>
                                     <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.08)" vertical={false} />
-                                    <XAxis dataKey="week" stroke="#8CC7FF" tick={{ fill: "#9ca3af" }} tickMargin={10} axisLine={false} tickLine={false} />
-                                    <YAxis domain={[60, 85]} stroke="#8CC7FF" axisLine={false} tickLine={false} />
-                                    <RechartsTooltip cursor={{ fill: 'rgba(255,255,255,0.05)' }} contentStyle={{ backgroundColor: '#10293F', border: '1px solid rgba(255,255,255,0.1)' }} />
+                                    <XAxis dataKey="week" stroke="#8CC7FF" tick={{ fill: (document.documentElement.classList.contains('dark')) ? "#9ca3af" : "#6b7280" }} tickMargin={10} axisLine={false} tickLine={false} />
+                                    <YAxis domain={[60, 85]} stroke="#8CC7FF" tick={{ fill: (document.documentElement.classList.contains('dark')) ? "#9ca3af" : "#6b7280" }} axisLine={false} tickLine={false} />
+                                    <RechartsTooltip cursor={{ fill: 'rgba(255,255,255,0.05)' }} content={<CustomTooltip />} />
                                     <Line type="monotone" dataKey="value" stroke="#4DA3FF" strokeWidth={3} dot={{ r: 4, fill: '#8CC7FF', strokeWidth: 0 }} activeDot={{ r: 6, fill: '#8CC7FF' }} label={{ position: 'top', fill: '#8CC7FF', fontSize: 12, formatter: (value) => `${value}%` }} />
                                 </LineChart>
                             </ResponsiveContainer>
@@ -663,8 +663,8 @@ const AdminDashboard = ({ students, onNavigate, currentStudentId, animatedStats,
                                     <ResponsiveContainer width="100%" height="100%">
                                         <BarChart data={data.deptChart} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                                             <CartesianGrid stroke="#1E2A3A" strokeDasharray="3 3" vertical={false} />
-                                            <XAxis dataKey="name" stroke="#4A5568" tick={{ fill: '#6B7280', fontSize: 12 }} axisLine={false} tickLine={false} />
-                                            <YAxis stroke="#4A5568" tick={{ fill: '#6B7280', fontSize: 12 }} axisLine={false} tickLine={false} />
+                                            <XAxis dataKey="name" stroke="#4A5568" tick={{ fill: (document.documentElement.classList.contains('dark')) ? "#9ca3af" : "#6b7280", fontSize: 12 }} axisLine={false} tickLine={false} />
+                                            <YAxis stroke="#4A5568" tick={{ fill: (document.documentElement.classList.contains('dark')) ? "#9ca3af" : "#6b7280", fontSize: 12 }} axisLine={false} tickLine={false} />
                                             <RechartsTooltip content={<CustomTooltip />} cursor={{ fill: 'rgba(255,255,255,0.05)' }} />
                                             <Bar dataKey="limit" radius={[4, 4, 0, 0]}>
                                                 {data.deptChart.map((entry, index) => (
@@ -720,7 +720,7 @@ const AdminDashboard = ({ students, onNavigate, currentStudentId, animatedStats,
                                     </ResponsiveContainer>
                                     <div className="absolute inset-0 flex items-center justify-center flex-col pointer-events-none pb-8">
                                         <span className="text-3xl font-bold">{TOTAL_STUDENTS}</span>
-                                        <span className="text-xs text-gray-400">Total</span>
+                                        <span className="text-xs text-gray-600 dark:text-gray-400">Total</span>
                                     </div>
                                 </div>
 
@@ -728,7 +728,7 @@ const AdminDashboard = ({ students, onNavigate, currentStudentId, animatedStats,
                                     {data.pieData.map((d, i) => (
                                         <div key={i} className="flex items-center gap-2">
                                             <div className="w-3 h-3 rounded-full" style={{ backgroundColor: d.color }}></div>
-                                            <span className="text-sm text-gray-300">{d.name} <span className="font-bold text-white ml-1">{d.value}</span></span>
+                                            <span className="text-sm text-gray-700 dark:text-gray-300">{d.name} <span className="font-bold text-gray-900 dark:text-white ml-1">{d.value}</span></span>
                                         </div>
                                     ))}
                                 </div>
@@ -913,7 +913,7 @@ const ParentDashboard = ({ students }) => {
 
                 {/* 1. Student Attendance Card */}
                 <Card tier={1} delay={0.1} className="flex flex-col">
-                    <div className="flex items-center gap-2 text-gray-400 font-semibold text-sm mb-4">
+                    <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400 font-semibold text-sm mb-4">
                         <Clock className="w-5 h-5 text-[#4DA3FF]" /> Attendance Overview
                     </div>
                     <div className="flex-1 flex flex-col justify-center">
@@ -922,11 +922,11 @@ const ParentDashboard = ({ students }) => {
 
                         <div className="mt-6 space-y-3">
                             <div className="flex justify-between items-center text-sm border-b border-white/5 pb-2">
-                                <span className="text-gray-400">Classes Attended</span>
+                                <span className="text-gray-600 dark:text-gray-400">Classes Attended</span>
                                 <span className="text-gray-900 dark:text-white font-bold">{Math.round((attendancePercent / 100) * 40)}</span>
                             </div>
                             <div className="flex justify-between items-center text-sm">
-                                <span className="text-gray-400">Classes Missed</span>
+                                <span className="text-gray-600 dark:text-gray-400">Classes Missed</span>
                                 <span className="text-gray-900 dark:text-white font-bold">{40 - Math.round((attendancePercent / 100) * 40)}</span>
                             </div>
                         </div>
@@ -935,7 +935,7 @@ const ParentDashboard = ({ students }) => {
 
                 {/* 2. Academic Performance Card */}
                 <Card tier={2} delay={0.2} className="flex flex-col">
-                    <div className="flex items-center gap-2 text-gray-400 font-semibold text-sm mb-4">
+                    <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400 font-semibold text-sm mb-4">
                         <Star className="w-5 h-5 text-[#F59E0B]" /> Academic Performance
                     </div>
 
@@ -949,7 +949,7 @@ const ParentDashboard = ({ students }) => {
                             <LineChart data={performanceData}>
                                 <Line type="monotone" dataKey="score" stroke="#F59E0B" strokeWidth={2} dot={{ r: 3, fill: '#F59E0B' }} />
                                 <RechartsTooltip
-                                    contentStyle={{ backgroundColor: '#10293F', border: '1px solid rgba(255,255,255,0.1)' }}
+                                    contentStyle={{ backgroundColor: (document.documentElement.classList.contains('dark')) ? '#10293F' : '#ffffff', border: (document.documentElement.classList.contains('dark')) ? '1px solid rgba(255,255,255,0.1)' : '1px solid #e5e7eb', color: (document.documentElement.classList.contains('dark')) ? '#ffffff' : '#111827' }}
                                     formatter={(val) => [`${val} Marks`, 'Score']}
                                 />
                             </LineChart>
@@ -957,9 +957,9 @@ const ParentDashboard = ({ students }) => {
                     </div>
 
                     <div className="mt-4 pt-4 border-t border-white/5">
-                        <div className="text-xs text-gray-400 mb-2 font-semibold">Latest Subjects</div>
+                        <div className="text-xs text-gray-600 dark:text-gray-400 mb-2 font-semibold">Latest Subjects</div>
                         <div className="flex justify-between items-center text-sm">
-                            <span className="text-gray-300">Mathematics</span>
+                            <span className="text-gray-700 dark:text-gray-300">Mathematics</span>
                             <span className="text-gray-900 dark:text-white font-bold">78/100</span>
                         </div>
                     </div>
@@ -967,7 +967,7 @@ const ParentDashboard = ({ students }) => {
 
                 {/* 3. Risk Prediction Card */}
                 <Card tier={3} delay={0.3} className="flex flex-col">
-                    <div className="flex items-center gap-2 text-gray-400 font-semibold text-sm mb-4">
+                    <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400 font-semibold text-sm mb-4">
                         <Shield className="w-5 h-5 text-indigo-400" /> Academic Health
                     </div>
 
@@ -1016,18 +1016,18 @@ const FacultyDashboard = ({ students, onSelectStudent, can, currentStudentId, op
                 <>
                     <div className="flex flex-wrap gap-4 mb-6 items-center w-full pl-4">
                         <div className="relative flex-1 min-w-[250px]">
-                            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
+                            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-600 dark:text-gray-400 w-5 h-5" />
                             <input
                                 type="text" placeholder="Search by name or ID..."
                                 value={search} onChange={e => setSearch(e.target.value)}
-                                className="w-full bg-gray-100 dark:bg-[#0B0B0C]/60 border border-gray-300 dark:border-white/10 rounded-xl pl-10 pr-4 py-2.5 text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:border-[#4DA3FF]/50 transition-colors backdrop-blur-md"
+                                className="w-full bg-[#0B0B0C]/60 border border-gray-300 dark:border-white/10 rounded-xl pl-10 pr-4 py-2.5 text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:border-[#4DA3FF]/50 transition-colors backdrop-blur-md"
                             />
                         </div>
 
                         <div className="flex gap-2">
                             {["All", "HIGH", "MODERATE", "SAFE"].map(r => (
                                 <button key={r} onClick={() => setFilterRisk(r)}
-                                    className={`px-4 py-2 rounded-xl text-sm font-semibold transition-all ${filterRisk === r ? 'bg-white/10 text-white shadow-sm' : 'text-gray-400 hover:text-white hover:bg-white/5'
+                                    className={`px-4 py-2 rounded-xl text-sm font-semibold transition-all ${filterRisk === r ? 'bg-white/10 text-gray-900 dark:text-white shadow-sm' : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:text-white hover:bg-white/5'
                                         }`}
                                 >
                                     <div className="flex items-center gap-2">
@@ -1043,7 +1043,7 @@ const FacultyDashboard = ({ students, onSelectStudent, can, currentStudentId, op
                         <div className="overflow-x-auto w-full">
                             <table className="w-full text-left border-collapse min-w-[800px]">
                                 <thead>
-                                    <tr className="border-b border-gray-200 dark:border-white/5 text-gray-500 dark:text-gray-400 text-sm">
+                                    <tr className="border-b border-white/5 text-gray-500 dark:text-gray-600 dark:text-gray-400 text-sm">
                                         <th className="p-4 font-semibold w-12 text-center">#</th>
                                         <th className="p-4 font-semibold">Student</th>
                                         <th className="p-4 font-semibold">Dept</th>
@@ -1083,8 +1083,8 @@ const FacultyDashboard = ({ students, onSelectStudent, can, currentStudentId, op
                                                         </div>
                                                     </div>
                                                 </td>
-                                                <td className="p-4 text-gray-300">{s.dept}</td>
-                                                <td className="p-4 text-center text-gray-300">{s.sem}</td>
+                                                <td className="p-4 text-gray-700 dark:text-gray-300">{s.dept}</td>
+                                                <td className="p-4 text-center text-gray-700 dark:text-gray-300">{s.sem}</td>
                                                 <td className="p-4 text-center">
                                                     <div className="inline-block px-3 py-1 rounded-full risk-cell font-bold"
                                                         style={getBadgeStyle(s.risk.level)}>
@@ -1100,13 +1100,13 @@ const FacultyDashboard = ({ students, onSelectStudent, can, currentStudentId, op
                                                 <td className="p-4 text-center">
                                                     {s.risk.trend === 'declining' && <TrendingDown className="w-5 h-5 mx-auto text-[#EF4444]" />}
                                                     {s.risk.trend === 'improving' && <TrendingUp className="w-5 h-5 mx-auto text-[#4DA3FF]" />}
-                                                    {s.risk.trend === 'stable' && <Minus className="w-5 h-5 mx-auto text-gray-400" />}
+                                                    {s.risk.trend === 'stable' && <Minus className="w-5 h-5 mx-auto text-gray-600 dark:text-gray-400" />}
                                                     {s.risk.trend === 'mixed' && <Activity className="w-5 h-5 mx-auto text-[#F59E0B]" />}
                                                 </td>
                                                 <td className="p-4 text-center align-middle">
                                                     <button
                                                         onClick={() => openStudentDetail && openStudentDetail(s) || onSelectStudent && onSelectStudent(s)}
-                                                        onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.transition = 'all 0.25s ease'; e.currentTarget.style.boxShadow = '0 6px 18px rgba(77,163,255,0.16)'; }} onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0px)'; e.currentTarget.style.boxShadow = 'none'; }} className="action-btn px-4 py-1.5 btn-gradient rounded-lg text-sm font-bold text-white shadow-md mx-auto inline-block opacity-0 transition-opacity"
+                                                        onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.transition = 'all 0.25s ease'; e.currentTarget.style.boxShadow = '0 6px 18px rgba(77,163,255,0.16)'; }} onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0px)'; e.currentTarget.style.boxShadow = 'none'; }} className="action-btn px-4 py-1.5 btn-gradient rounded-lg text-sm font-bold text-gray-900 dark:text-white shadow-md mx-auto inline-block opacity-0 transition-opacity"
                                                     >
                                                         View Profile
                                                     </button>
@@ -1171,7 +1171,7 @@ const StudentDetail = ({ student, onBack, onInterventionReq, skeletonLoading, di
 
     return (
         <div className="p-6 animate-page max-w-7xl mx-auto pb-20">
-            <button onClick={onBack} className="flex items-center gap-2 text-gray-400 hover:text-white mb-6 transition-colors">
+            <button onClick={onBack} className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:text-white mb-6 transition-colors">
                 <ArrowLeft className="w-5 h-5" /> Back to Students
             </button>
 
@@ -1201,16 +1201,16 @@ const StudentDetail = ({ student, onBack, onInterventionReq, skeletonLoading, di
                             <div>
                                 <h1 className="text-4xl font-bold mb-2 tracking-tight flex items-center">{student.name}</h1>
                                 <div className="flex gap-3 text-sm">
-                                    <span className="text-gray-400">ID: <span className="text-white font-medium">{student.id}</span></span>
-                                    <span className="px-2 py-0.5 rounded bg-white/10 text-gray-300 font-medium">{student.dept}</span>
-                                    <span className="px-2 py-0.5 rounded bg-white/10 text-gray-300 font-medium">Sem {student.sem}</span>
+                                    <span className="text-gray-600 dark:text-gray-400">ID: <span className="text-gray-900 dark:text-white font-medium">{student.id}</span></span>
+                                    <span className="px-2 py-0.5 rounded bg-white/10 text-gray-700 dark:text-gray-300 font-medium">{student.dept}</span>
+                                    <span className="px-2 py-0.5 rounded bg-white/10 text-gray-700 dark:text-gray-300 font-medium">Sem {student.sem}</span>
                                 </div>
                             </div>
                         </div>
 
                         <div className="flex flex-col md:flex-row items-end gap-6 ml-auto">
                             <div className="text-right">
-                                <div className="text-sm text-gray-400 mb-1">Faculty Advisor</div>
+                                <div className="text-sm text-gray-600 dark:text-gray-400 mb-1">Faculty Advisor</div>
                                 <div className="font-semibold">{student.facultyAdvisor}</div>
                                 <div className="text-xs text-gray-500 mt-1">Prev GPA: {student.prevGPA}</div>
                             </div>
@@ -1242,13 +1242,13 @@ const StudentDetail = ({ student, onBack, onInterventionReq, skeletonLoading, di
                                     <div className="text-5xl font-black" style={{ color: isHigh ? '#F59E0B' : color, textShadow: isHigh ? '0 0 25px rgba(245,158,11,0.25)' : 'none' }}>
                                         {displayScore}
                                     </div>
-                                    <div className="text-sm text-gray-400 font-bold tracking-widest uppercase mt-1">Score</div>
+                                    <div className="text-sm text-gray-600 dark:text-gray-400 font-bold tracking-widest uppercase mt-1">Score</div>
                                 </div>
                             </div>
 
                             <div className="mt-6 text-center">
                                 <div className="text-xl font-bold mb-2" style={{ color: color }}>{risk.level}</div>
-                                <div className="text-sm text-gray-400 px-4">
+                                <div className="text-sm text-gray-600 dark:text-gray-400 px-4">
                                     Multi-dimensional analysis based on attendance, academics, behavior, and engagement.
                                 </div>
                             </div>
@@ -1256,7 +1256,7 @@ const StudentDetail = ({ student, onBack, onInterventionReq, skeletonLoading, di
 
                         <div className="w-full lg:w-2/3 grid grid-cols-1 md:grid-cols-2 gap-4">
                             <Card tier={2} delay={0.2} className="h-48 flex flex-col">
-                                <h3 className="text-sm font-semibold text-gray-400 mb-2">Attendance Trend</h3>
+                                <h3 className="text-sm font-semibold text-gray-600 dark:text-gray-400 mb-2">Attendance Trend</h3>
                                 <div className="flex-1 -ml-4">
                                     <ResponsiveContainer width="100%" height="100%">
                                         <LineChart data={attData}>
@@ -1270,7 +1270,7 @@ const StudentDetail = ({ student, onBack, onInterventionReq, skeletonLoading, di
                             </Card>
 
                             <Card tier={2} delay={0.3} className="h-48 flex flex-col">
-                                <h3 className="text-sm font-semibold text-gray-400 mb-2">Academic Performance</h3>
+                                <h3 className="text-sm font-semibold text-gray-600 dark:text-gray-400 mb-2">Academic Performance</h3>
                                 <div className="flex-1 -ml-4">
                                     <ResponsiveContainer width="100%" height="100%">
                                         <LineChart data={marksData}>
@@ -1284,15 +1284,15 @@ const StudentDetail = ({ student, onBack, onInterventionReq, skeletonLoading, di
                             </Card>
 
                             <Card tier={2} delay={0.4} className="h-40 flex flex-col justify-center text-center">
-                                <h3 className="text-sm font-semibold text-gray-400 mb-2">LMS Engagement</h3>
-                                <div className="text-3xl font-bold text-white">
+                                <h3 className="text-sm font-semibold text-gray-600 dark:text-gray-400 mb-2">LMS Engagement</h3>
+                                <div className="text-3xl font-bold text-gray-900 dark:text-white">
                                     {Math.round((student.lmsLogins[3] + student.lmsLogins[4]) / 2)}
                                     <span className="text-sm text-gray-500 font-normal ml-2">logins/week</span>
                                 </div>
                             </Card>
 
                             <Card tier={2} delay={0.5} className="h-40 flex flex-col justify-center text-center">
-                                <h3 className="text-sm font-semibold text-gray-400 mb-2">Behavior & Delays</h3>
+                                <h3 className="text-sm font-semibold text-gray-600 dark:text-gray-400 mb-2">Behavior & Delays</h3>
                                 <div className="flex justify-around items-center w-full px-4 mt-2">
                                     <div>
                                         <div className="text-2xl font-bold text-[#F59E0B]">{student.assignmentDelays}</div>
@@ -1333,8 +1333,8 @@ const StudentDetail = ({ student, onBack, onInterventionReq, skeletonLoading, di
                                             {d.type === 'risk' ? <TrendingDown className="w-5 h-5 text-[#EF4444]" /> : <TrendingUp className="w-5 h-5 text-[#4DA3FF]" />}
                                         </div>
                                         <div>
-                                            <div className="text-sm font-medium text-white">{d.factor}</div>
-                                            <div className="text-xs text-gray-400">
+                                            <div className="text-sm font-medium text-gray-900 dark:text-white">{d.factor}</div>
+                                            <div className="text-xs text-gray-600 dark:text-gray-400">
                                                 {d.value > 0 ? `Contributes +${d.value} pts to risk score` : `Reduces risk score by ${Math.abs(d.value)} pts`}
                                             </div>
                                         </div>
@@ -1520,7 +1520,7 @@ const StudentDetail = ({ student, onBack, onInterventionReq, skeletonLoading, di
                                             <span className="px-2 py-1 rounded bg-[#EF4444]/20 text-[#F87171] text-xs font-bold">URGENT</span>
                                         </div>
                                         <div className="font-bold text-lg mb-1">Parent Meeting</div>
-                                        <div className="text-sm text-gray-400">Schedule immediate call with parents regarding attendance drop.</div>
+                                        <div className="text-sm text-gray-600 dark:text-gray-400">Schedule immediate call with parents regarding attendance drop.</div>
                                     </Card>
                                 </>
                             ) : risk.level === "MODERATE" ? (
@@ -1531,7 +1531,7 @@ const StudentDetail = ({ student, onBack, onInterventionReq, skeletonLoading, di
                                         </div>
                                     </div>
                                     <div className="font-bold text-lg mb-1">Remedial Classes</div>
-                                    <div className="text-sm text-gray-400">Provide structured study plan for core subjects.</div>
+                                    <div className="text-sm text-gray-600 dark:text-gray-400">Provide structured study plan for core subjects.</div>
                                 </Card>
                             ) : (
                                 <Card tier={2} delay={0.7} className="min-w-[280px] snap-center border-l-4 border-l-[#4DA3FF] flex-shrink-0">
@@ -1541,7 +1541,7 @@ const StudentDetail = ({ student, onBack, onInterventionReq, skeletonLoading, di
                                         </div>
                                     </div>
                                     <div className="font-bold text-lg mb-1">General Monitoring</div>
-                                    <div className="text-sm text-gray-400">Student is performing well. Maintain standard check-ins.</div>
+                                    <div className="text-sm text-gray-600 dark:text-gray-400">Student is performing well. Maintain standard check-ins.</div>
                                 </Card>
                             )}
                         </div>
@@ -1586,10 +1586,10 @@ const InterventionsPanel = ({ students }) => {
                     animationFillMode: 'both',
                     animationDelay: '0s'
                 }}>
-                    <div className="text-gray-400 text-sm font-semibold mb-1 flex items-center gap-2">
-                        <Activity className="w-4 h-4 text-white" /> Total Logged
+                    <div className="text-gray-600 dark:text-gray-400 text-sm font-semibold mb-1 flex items-center gap-2">
+                        <Activity className="w-4 h-4 text-gray-900 dark:text-white" /> Total Logged
                     </div>
-                    <div className="text-3xl font-bold text-white">{interventions.length}</div>
+                    <div className="text-3xl font-bold text-gray-900 dark:text-white">{interventions.length}</div>
                 </Card>
                 <Card delay={0.2} className="flex-1 min-w-[150px] border-[#F59E0B]/30" style={{
                     animationName: 'staggerFadeUp',
@@ -1598,7 +1598,7 @@ const InterventionsPanel = ({ students }) => {
                     animationFillMode: 'both',
                     animationDelay: '0.06s'
                 }}>
-                    <div className="text-gray-400 text-sm font-semibold mb-1 flex items-center gap-2">
+                    <div className="text-gray-600 dark:text-gray-400 text-sm font-semibold mb-1 flex items-center gap-2">
                         <Clock className="w-4 h-4 text-[#F59E0B]" /> Pending
                     </div>
                     <div className="text-3xl font-bold text-[#F59E0B]">{pending}</div>
@@ -1610,7 +1610,7 @@ const InterventionsPanel = ({ students }) => {
                     animationFillMode: 'both',
                     animationDelay: '0.12s'
                 }}>
-                    <div className="text-gray-400 text-sm font-semibold mb-1 flex items-center gap-2">
+                    <div className="text-gray-600 dark:text-gray-400 text-sm font-semibold mb-1 flex items-center gap-2">
                         <Zap className="w-4 h-4 text-[#4DA3FF]" /> Active
                     </div>
                     <div className="text-3xl font-bold text-[#4DA3FF]">{active}</div>
@@ -1622,7 +1622,7 @@ const InterventionsPanel = ({ students }) => {
                     animationFillMode: 'both',
                     animationDelay: '0.18s'
                 }}>
-                    <div className="text-gray-400 text-sm font-semibold mb-1 flex items-center gap-2">
+                    <div className="text-gray-600 dark:text-gray-400 text-sm font-semibold mb-1 flex items-center gap-2">
                         <CheckCircle2 className="w-4 h-4 text-[#4DA3FF]" /> Completed
                     </div>
                     <div className="text-3xl font-bold text-[#4DA3FF]">{complete}</div>
@@ -1632,7 +1632,7 @@ const InterventionsPanel = ({ students }) => {
             <Card tier={2} delay={0.5} className="p-0 overflow-hidden">
                 <table className="w-full text-left border-collapse min-w-[800px]">
                     <thead>
-                        <tr className="border-b border-white/5 text-gray-400 text-sm">
+                        <tr className="border-b border-white/5 text-gray-600 dark:text-gray-400 text-sm">
                             <th className="p-4 font-semibold">Student</th>
                             <th className="p-4 font-semibold">Risk Level</th>
                             <th className="p-4 font-semibold">Intervention Type</th>
@@ -1656,15 +1656,15 @@ const InterventionsPanel = ({ students }) => {
                                                 style={{ borderColor: risk.level === "SAFE" ? 'rgba(77,163,255,0.26)' : color, color: color }}>
                                                 {s.name.split(' ').map(n => n[0]).join('')}
                                             </div>
-                                            <div className="font-bold text-white">{s.name}</div>
+                                            <div className="font-bold text-gray-900 dark:text-white">{s.name}</div>
                                         </div>
                                     </td>
                                     <td className="p-4">
                                         <div className="text-xs font-bold" style={{ color: color }}>{risk.level}</div>
                                     </td>
                                     <td className="p-4 font-medium">{inv.type}</td>
-                                    <td className="p-4 text-gray-300">{inv.assigned}</td>
-                                    <td className="p-4 text-gray-300">{inv.date}</td>
+                                    <td className="p-4 text-gray-700 dark:text-gray-300">{inv.assigned}</td>
+                                    <td className="p-4 text-gray-700 dark:text-gray-300">{inv.date}</td>
                                     <td className="p-4 text-center">
                                         <span className={`px-3 py-1 rounded-full text-xs font-bold border ${inv.status === "PENDING" ? "text-[#F59E0B] border-[#F59E0B]/20 bg-[#F59E0B]/10" : inv.status === "ACTIVE" ? "text-[#4DA3FF] border-[#4DA3FF]/[0.18] bg-[#4DA3FF]/[0.08]" : "text-[#4DA3FF] border-[#4DA3FF]/20 bg-[#4DA3FF]/10"}`}>
                                             {inv.status}
@@ -1672,7 +1672,7 @@ const InterventionsPanel = ({ students }) => {
                                     </td>
                                     <td className="p-4 text-center">
                                         {inv.status !== "COMPLETE" ? (
-                                            <button onClick={() => markComplete(inv.id)} className="px-3 py-1.5 rounded-lg border border-white/10 text-xs font-semibold hover:bg-white/10 transition-colors flex items-center gap-1 mx-auto text-white">
+                                            <button onClick={() => markComplete(inv.id)} className="px-3 py-1.5 rounded-lg border border-white/10 text-xs font-semibold hover:bg-white/10 transition-colors flex items-center gap-1 mx-auto text-gray-900 dark:text-white">
                                                 <CheckCircle2 className="w-4 h-4" /> Resolve
                                             </button>
                                         ) : (
@@ -1803,15 +1803,15 @@ const UploadPage = ({ setStudents, showToast, role }) => {
             <div style={{ maxWidth: 800, margin: '0 auto', marginTop: 40, display: 'flex', flexDirection: isDataset ? 'column' : 'row', gap: 24 }}>
                 {isDataset ? (
                     <div style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(77,163,255,0.18)', borderRadius: 16, padding: 24, flex: 1 }}>
-                        <h3 className="text-xl font-bold mb-2 text-white">Upload CSV</h3>
-                        <p className="text-sm text-gray-400 mb-6">
+                        <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-white">Upload CSV</h3>
+                        <p className="text-sm text-gray-600 dark:text-gray-400 mb-6">
                             Upload a bulk dataset of student records. Required columns: id, name, dept, semester, riskScore, riskLevel.
                         </p>
                         <input
                             type="file"
                             accept=".csv"
                             onChange={createUploadHandler('dataset')}
-                            className="block w-full text-sm text-gray-400
+                            className="block w-full text-sm text-gray-600 dark:text-gray-400
                                        file:mr-4 file:py-2 file:px-4
                                        file:rounded-xl file:border-0
                                        file:text-sm file:font-semibold
@@ -1822,8 +1822,8 @@ const UploadPage = ({ setStudents, showToast, role }) => {
                 ) : (
                     <>
                         <div style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(77,163,255,0.18)', borderRadius: 16, padding: 24, flex: 1 }}>
-                            <h3 className="text-xl font-bold mb-2 text-white">Weekly Attendance</h3>
-                            <p className="text-sm text-gray-400 mb-2">
+                            <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-white">Weekly Attendance</h3>
+                            <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
                                 Upload weekly attendance CSV files for student monitoring. Required columns: studentid, week, attendance.
                             </p>
                             <p className="text-xs text-slate-400 mt-2 mb-6">Supported files: CSV, PDF, PNG</p>
@@ -1831,7 +1831,7 @@ const UploadPage = ({ setStudents, showToast, role }) => {
                                 type="file"
                                 accept=".csv,.pdf,.png"
                                 onChange={createUploadHandler('attendance')}
-                                className="block w-full text-sm text-gray-400
+                                className="block w-full text-sm text-gray-600 dark:text-gray-400
                                            file:mr-4 file:py-2 file:px-4
                                            file:rounded-xl file:border-0
                                            file:text-sm file:font-semibold
@@ -1840,15 +1840,15 @@ const UploadPage = ({ setStudents, showToast, role }) => {
                             />
                         </div>
                         <div style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(77,163,255,0.18)', borderRadius: 16, padding: 24, flex: 1 }}>
-                            <h3 className="text-xl font-bold mb-2 text-white">Internal Assessment</h3>
-                            <p className="text-sm text-gray-400 mb-6">
+                            <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-white">Internal Assessment</h3>
+                            <p className="text-sm text-gray-600 dark:text-gray-400 mb-6">
                                 Upload assessment marks for student evaluation. Required columns: studentid, subject, marks.
                             </p>
                             <input
                                 type="file"
                                 accept=".csv"
                                 onChange={createUploadHandler('marks')}
-                                className="block w-full text-sm text-gray-400
+                                className="block w-full text-sm text-gray-600 dark:text-gray-400
                                            file:mr-4 file:py-2 file:px-4
                                            file:rounded-xl file:border-0
                                            file:text-sm file:font-semibold
@@ -2026,20 +2026,20 @@ const App = () => {
             }}>
             <Card tier={3} className="w-full max-w-lg p-8 relative border-[#F59E0B]/30" style={{ animation: 'modalScaleIn 220ms ease forwards' }}>
                 <h3 className="text-2xl font-bold mb-4 flex items-center gap-2"><Zap className="w-6 h-6 text-[#F59E0B]" /> Trigger Action</h3>
-                <p className="text-gray-400 mb-6">Select automated intervention for {selectedStudent?.name}</p>
+                <p className="text-gray-600 dark:text-gray-400 mb-6">Select automated intervention for {selectedStudent?.name}</p>
 
                 <div className="space-y-3 mb-8">
                     <button className="w-full text-left p-4 rounded-xl border border-white/10 hover:border-[#F59E0B] flex justify-between items-center bg-white/5 transition-colors">
                         <div>
-                            <div className="font-bold text-white">Schedule Parent Meeting</div>
-                            <div className="text-xs text-gray-400">Send auto-email to parents and block calendar</div>
+                            <div className="font-bold text-gray-900 dark:text-white">Schedule Parent Meeting</div>
+                            <div className="text-xs text-gray-600 dark:text-gray-400">Send auto-email to parents and block calendar</div>
                         </div>
                         <Users className="text-[#F59E0B] w-5 h-5" />
                     </button>
                     <button className="w-full text-left p-4 rounded-xl border border-white/10 hover:border-[#4DA3FF] flex justify-between items-center bg-white/5 transition-colors">
                         <div>
-                            <div className="font-bold text-white">Assign to Remedial Cluster</div>
-                            <div className="text-xs text-gray-400">Add student to upcoming remedial sessions</div>
+                            <div className="font-bold text-gray-900 dark:text-white">Assign to Remedial Cluster</div>
+                            <div className="text-xs text-gray-600 dark:text-gray-400">Add student to upcoming remedial sessions</div>
                         </div>
                         <BookOpen className="text-[#4DA3FF] w-5 h-5" />
                     </button>
@@ -2063,11 +2063,11 @@ const App = () => {
             <div className="ambient-glow-topRight"></div>
 
             {currentPage !== "login" && currentPage !== "reset-password" && (
-                <nav className="w-full border-b border-gray-200 dark:border-white/10 bg-white/90 dark:bg-[#10293F]/80 backdrop-blur-lg sticky top-0 z-40 transition-colors duration-300">
+                <nav className="w-full border-b border-white/10 bg-[#10293F]/80 backdrop-blur-lg sticky top-0 z-40 transition-colors duration-300">
                     <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
                         <div className="flex items-center gap-2 cursor-pointer" onClick={() => handleNavigate('admin')} style={{ display: 'flex', alignItems: 'center' }}>
                             <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#8CC7FF] to-[#4DA3FF] flex items-center justify-center">
-                                <Brain className="w-5 h-5 text-white" />
+                                <Brain className="w-5 h-5 text-gray-900 dark:text-white" />
                             </div>
                             <div style={{ display: 'flex', flexDirection: 'column' }}>
                                 <span style={{ fontFamily: 'Syne', fontWeight: 700, fontSize: 20, background: 'linear-gradient(135deg,#8CC7FF,#4DA3FF)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', lineHeight: 1.1 }}>Hackspace</span>
@@ -2113,7 +2113,7 @@ const App = () => {
                             </div>
                             <button
                                 onClick={() => setIsDarkMode(!isDarkMode)}
-                                className="ml-6 p-2 rounded-full hover:bg-gray-100 dark:hover:bg-white/10 transition flex items-center justify-center text-gray-700 dark:text-white"
+                                className="ml-6 p-2 rounded-full hover:bg-gray-100 dark:hover:bg-white/10 transition flex items-center justify-center text-gray-900 dark:text-white"
                                 aria-label="Toggle Theme"
                             >
                                 {isDarkMode ? <Sun className="text-yellow-400 w-5 h-5" /> : <Moon className="text-slate-200 w-5 h-5" />}
@@ -2125,7 +2125,7 @@ const App = () => {
                                 <div className="w-5 h-5 rounded-full bg-gradient-to-br from-[#FBBF24] to-[#EF4444]"></div>
                                 <span className="text-xs font-bold uppercase tracking-wider">{role}</span>
                             </div>
-                            <button onClick={handleLogout} className="p-2 text-gray-400 hover:text-white hover:bg-white/5 rounded-lg transition-colors">
+                            <button onClick={handleLogout} className="p-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:text-white hover:bg-white/5 rounded-lg transition-colors">
                                 <LogOut className="w-5 h-5" />
                             </button>
                         </div>
